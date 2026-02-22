@@ -1,6 +1,7 @@
 import { db } from '$lib/db/index';
 import { orders } from '$lib/db/schema';
 import { fail, redirect } from '@sveltejs/kit';
+import { sendOrderEmail } from '$lib/server/email';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => ({});
@@ -17,7 +18,13 @@ export const actions: Actions = {
 
         if (!customerName || !email) return fail(400, { error: 'Name and email are required.' });
 
-        db.insert(orders).values({ customerName, email, phone, address, itemsJson, total }).run();
+        await db.insert(orders).values({ customerName, email, phone, address, itemsJson, total }).run();
+
+        // Send email asynchronously to avoid blocking the user response
+        sendOrderEmail({ customerName, email, phone, address, itemsJson, total }).catch(error => {
+            console.error('Asynchronous order email failed:', error);
+        });
+
         throw redirect(303, '/?ordered=1');
     }
 };

@@ -1,6 +1,7 @@
 import { db } from '$lib/db/index';
 import { contacts } from '$lib/db/schema';
 import { fail } from '@sveltejs/kit';
+import { sendEnquiryEmail } from '$lib/server/email';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => ({});
@@ -18,6 +19,12 @@ export const actions: Actions = {
         }
 
         await db.insert(contacts).values({ name, email, phone, message }).run();
+
+        // Send email asynchronously to avoid blocking the user response
+        sendEnquiryEmail({ name, email, phone, message }).catch(error => {
+            console.error('Asynchronous enquiry email failed:', error);
+        });
+
         return { success: true };
     }
 };
