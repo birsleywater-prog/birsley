@@ -1,6 +1,15 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     export let data: PageData;
+
+    const parseDate = (dateStr: string | null) => {
+        if (!dateStr) return new Date();
+        // If it's the old SQLite format "YYYY-MM-DD HH:MM:SS", assume UTC and append 'Z'
+        if (dateStr.length === 19 && !dateStr.includes("T")) {
+            return new Date(dateStr.replace(" ", "T") + "Z");
+        }
+        return new Date(dateStr);
+    };
 </script>
 
 <div class="space-y-6">
@@ -17,9 +26,20 @@
                     <h3 class="font-heading font-bold text-gray-900">
                         {lead.name}
                     </h3>
-                    <span class="text-[10px] text-gray-400"
-                        >{lead.createdAt}</span
-                    >
+                    <span class="text-[10px] text-gray-400">
+                        {lead.createdAt
+                            ? parseDate(lead.createdAt).toLocaleDateString(
+                                  "en-IN",
+                                  {
+                                      day: "numeric",
+                                      month: "short",
+                                      year: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                  },
+                              )
+                            : "Recently"}
+                    </span>
                 </div>
                 <div class="text-xs text-gray-500 space-y-1">
                     <p>

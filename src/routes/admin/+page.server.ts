@@ -1,6 +1,6 @@
 import { db } from '$lib/db/index';
 import { products, categories, orders, blogPosts, contacts } from '$lib/db/schema';
-import { count } from 'drizzle-orm';
+import { count, desc } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -9,8 +9,8 @@ export const load: PageServerLoad = async () => {
     const [orderCount] = await db.select({ value: count() }).from(orders);
     const [blogCount] = await db.select({ value: count() }).from(blogPosts);
 
-    const recentOrders = await db.select().from(orders).orderBy(orders.createdAt).limit(5).all();
-    const recentContacts = await db.select().from(contacts).orderBy(contacts.createdAt).limit(5).all();
+    const recentOrders = await db.select().from(orders).orderBy(desc(orders.createdAt)).limit(10).all();
+    const recentContacts = await db.select().from(contacts).orderBy(desc(contacts.createdAt)).limit(10).all();
 
     return {
         stats: {

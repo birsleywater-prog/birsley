@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
-import { sql } from 'drizzle-orm';
 
 // ─── Categories ───────────────────────────────────────────────────────────────
 export const categories = sqliteTable('categories', {
@@ -8,7 +7,7 @@ export const categories = sqliteTable('categories', {
     slug: text('slug').notNull().unique(),
     description: text('description'),
     image: text('image'),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+    createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });
 
 // ─── Products ─────────────────────────────────────────────────────────────────
@@ -26,7 +25,7 @@ export const products = sqliteTable('products', {
     isFeatured: integer('is_featured', { mode: 'boolean' }).default(false),
     inStock: integer('in_stock', { mode: 'boolean' }).default(true),
     sortOrder: integer('sort_order').default(0),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+    createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });
 
 // ─── Banners ──────────────────────────────────────────────────────────────────
@@ -50,8 +49,8 @@ export const blogPosts = sqliteTable('blog_posts', {
     excerpt: text('excerpt'),
     content: text('content'),
     image: text('image'),
-    publishedAt: text('published_at').default(sql`CURRENT_TIMESTAMP`),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+    publishedAt: text('published_at').$defaultFn(() => new Date().toISOString()),
+    createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
@@ -77,7 +76,7 @@ export const orders = sqliteTable('orders', {
     total: real('total'),
     status: text('status').default('pending'),  // pending|confirmed|delivered
     notes: text('notes'),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+    createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });
 
 // ─── Contacts ─────────────────────────────────────────────────────────────────
@@ -87,5 +86,5 @@ export const contacts = sqliteTable('contacts', {
     email: text('email').notNull(),
     phone: text('phone'),
     message: text('message').notNull(),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+    createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });

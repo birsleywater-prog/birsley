@@ -6,6 +6,15 @@
     let orderSort: "newest" | "oldest" | "value" = "newest";
     let contactSort: "newest" | "oldest" = "newest";
 
+    const parseDate = (dateStr: string | null) => {
+        if (!dateStr) return new Date(0);
+        // If it's the old SQLite format "YYYY-MM-DD HH:MM:SS", assume UTC and append 'Z'
+        if (dateStr.length === 19 && !dateStr.includes("T")) {
+            return new Date(dateStr.replace(" ", "T") + "Z");
+        }
+        return new Date(dateStr);
+    };
+
     $: filteredOrders = data.recentOrders
         .filter((o) =>
             orderFilter === "all" ? true : o.status === orderFilter,
@@ -13,13 +22,13 @@
         .sort((a, b) => {
             if (orderSort === "newest")
                 return (
-                    new Date(b.createdAt || 0).getTime() -
-                    new Date(a.createdAt || 0).getTime()
+                    parseDate(b.createdAt).getTime() -
+                    parseDate(a.createdAt).getTime()
                 );
             if (orderSort === "oldest")
                 return (
-                    new Date(a.createdAt || 0).getTime() -
-                    new Date(b.createdAt || 0).getTime()
+                    parseDate(a.createdAt).getTime() -
+                    parseDate(b.createdAt).getTime()
                 );
             if (orderSort === "value") return (b.total || 0) - (a.total || 0);
             return 0;
@@ -28,13 +37,13 @@
     $: sortedContacts = [...data.recentContacts].sort((a, b) => {
         if (contactSort === "newest")
             return (
-                new Date(b.createdAt || 0).getTime() -
-                new Date(a.createdAt || 0).getTime()
+                parseDate(b.createdAt).getTime() -
+                parseDate(a.createdAt).getTime()
             );
         if (contactSort === "oldest")
             return (
-                new Date(a.createdAt || 0).getTime() -
-                new Date(b.createdAt || 0).getTime()
+                parseDate(a.createdAt).getTime() -
+                parseDate(b.createdAt).getTime()
             );
         return 0;
     });
@@ -85,7 +94,11 @@
                                 f
                                     ? 'bg-white text-brand-600 shadow-sm'
                                     : 'text-gray-400 hover:text-gray-600'}"
-                                on:click={() => (orderFilter = f)}
+                                on:click={() =>
+                                    (orderFilter = f as
+                                        | "all"
+                                        | "pending"
+                                        | "fulfilled")}
                             >
                                 {f.toUpperCase()}
                             </button>
@@ -142,7 +155,20 @@
                                             {order.customerName}
                                         </div>
                                         <div class="text-xs text-gray-400">
-                                            {order.createdAt}
+                                            {order.createdAt
+                                                ? parseDate(
+                                                      order.createdAt,
+                                                  ).toLocaleDateString(
+                                                      "en-IN",
+                                                      {
+                                                          day: "numeric",
+                                                          month: "short",
+                                                          year: "numeric",
+                                                          hour: "2-digit",
+                                                          minute: "2-digit",
+                                                      },
+                                                  )
+                                                : "Recently"}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-700"
@@ -222,7 +248,17 @@
                                         >✉️ {contact.email}</span
                                     >
                                     <span class="shrink-0"
-                                        >📅 {contact.createdAt}</span
+                                        >📅 {contact.createdAt
+                                            ? parseDate(
+                                                  contact.createdAt,
+                                              ).toLocaleDateString("en-IN", {
+                                                  day: "numeric",
+                                                  month: "short",
+                                                  year: "numeric",
+                                                  hour: "2-digit",
+                                                  minute: "2-digit",
+                                              })
+                                            : "Recently"}</span
                                     >
                                 </div>
                             </div>

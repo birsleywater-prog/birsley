@@ -22,6 +22,15 @@
         d1.getMonth() === d2.getMonth() &&
         d1.getDate() === d2.getDate();
 
+    const parseDate = (dateStr: string | null) => {
+        if (!dateStr) return new Date();
+        // If it's the old SQLite format "YYYY-MM-DD HH:MM:SS", assume UTC and append 'Z'
+        if (dateStr.length === 19 && !dateStr.includes("T")) {
+            return new Date(dateStr.replace(" ", "T") + "Z");
+        }
+        return new Date(dateStr);
+    };
+
     $: filteredOrders = data.orders.filter((o) => {
         // Status filter
         if (currentFilter !== "all" && o.status !== currentFilter) return false;
@@ -29,7 +38,7 @@
         // Date filter
         if (dateFilter === "all") return true;
 
-        const orderDate = new Date(o.createdAt || new Date());
+        const orderDate = parseDate(o.createdAt);
         const now = new Date();
 
         if (dateFilter === "today") return isSameDay(orderDate, now);
@@ -263,7 +272,7 @@
                             </div>
                             <div class="text-[10px] text-gray-400">
                                 {order.createdAt
-                                    ? new Date(
+                                    ? parseDate(
                                           order.createdAt,
                                       ).toLocaleDateString("en-IN", {
                                           day: "numeric",
