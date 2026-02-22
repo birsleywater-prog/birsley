@@ -4,6 +4,8 @@
     import { organizationJsonLd } from "$lib/utils/seo";
     import { cart } from "$lib/stores/cart";
     import { onMount, onDestroy } from "svelte";
+    import { page } from "$app/stores";
+    import { goto } from "$app/navigation";
     import {
         PUBLIC_PHONE_DISPLAY,
         PUBLIC_PHONE_LINK,
@@ -12,10 +14,16 @@
 
     export let data: PageData;
 
+    let showSuccessModal = false;
     let currentBanner = 0;
     let bannerInterval: ReturnType<typeof setInterval>;
 
     onMount(() => {
+        if ($page.url.searchParams.get("ordered") === "1") {
+            showSuccessModal = true;
+            cart.clearCart();
+        }
+
         if (data.banners.length > 1) {
             bannerInterval = setInterval(() => {
                 currentBanner = (currentBanner + 1) % data.banners.length;
@@ -23,6 +31,13 @@
         }
         return () => clearInterval(bannerInterval);
     });
+
+    function closeSuccessModal() {
+        showSuccessModal = false;
+        const url = new URL($page.url);
+        url.searchParams.delete("ordered");
+        goto(url.pathname, { replaceState: true, noScroll: true });
+    }
 
     const features = [
         {
@@ -524,3 +539,33 @@
         </div>
     </div>
 </section>
+
+{#if showSuccessModal}
+    <div
+        class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm"
+    >
+        <div
+            class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl aos"
+        >
+            <div
+                class="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6"
+            >
+                ✅
+            </div>
+            <h2 class="text-2xl font-heading font-extrabold text-gray-900 mb-3">
+                Request Submitted!
+            </h2>
+            <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                Thank you for choosing {PUBLIC_APP_NAME}. Your order enquiry has
+                been received. Our team will contact you shortly to confirm the
+                details.
+            </p>
+            <button
+                on:click={closeSuccessModal}
+                class="btn-primary w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-brand-200"
+            >
+                Great, Thanks!
+            </button>
+        </div>
+    </div>
+{/if}

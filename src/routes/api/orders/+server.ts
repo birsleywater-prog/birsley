@@ -12,3 +12,20 @@ export const POST: RequestHandler = async ({ request }) => {
     const result = db.insert(orders).values(body).returning().get();
     return json(result, { status: 201 });
 };
+
+export const PATCH: RequestHandler = async ({ request }) => {
+    const { id, status } = await request.json();
+    if (!id || !status) {
+        return json({ error: 'Missing id or status' }, { status: 400 });
+    }
+    const result = db.update(orders)
+        .set({ status })
+        .where(eq(orders.id, id))
+        .returning()
+        .get();
+
+    if (!result) {
+        return json({ error: 'Order not found' }, { status: 404 });
+    }
+    return json(result);
+};

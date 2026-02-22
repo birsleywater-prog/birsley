@@ -6,6 +6,16 @@
 
   let scrolled = false;
   let mobileOpen = false;
+  let highlightCart = false;
+  let lastCount = $cartCount;
+
+  $: if ($cartCount > lastCount) {
+    highlightCart = true;
+    setTimeout(() => (highlightCart = false), 1000);
+    lastCount = $cartCount;
+  } else {
+    lastCount = $cartCount;
+  }
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -89,7 +99,9 @@
         <!-- Cart icon -->
         <a
           href="/cart"
-          class="relative p-2 text-gray-700 hover:text-brand-600 transition-colors"
+          class="relative p-2 text-gray-700 hover:text-brand-600 transition-all duration-300 {highlightCart
+            ? 'scale-125 text-brand-500'
+            : ''}"
           aria-label="Cart"
         >
           <svg
@@ -108,7 +120,9 @@
           </svg>
           {#if $cartCount > 0}
             <span
-              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center transition-transform duration-300 {highlightCart
+                ? 'scale-125'
+                : ''}"
             >
               {$cartCount}
             </span>
@@ -120,7 +134,13 @@
 
       <!-- Mobile right: cart + hamburger -->
       <div class="flex md:hidden items-center gap-3 ml-auto">
-        <a href="/cart" class="relative p-2 text-gray-700" aria-label="Cart">
+        <a
+          href="/cart"
+          class="relative p-2 text-gray-700 transition-all duration-300 {highlightCart
+            ? 'scale-125 text-brand-500'
+            : ''}"
+          aria-label="Cart"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -137,7 +157,9 @@
           </svg>
           {#if $cartCount > 0}
             <span
-              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center transition-transform duration-300 {highlightCart
+                ? 'scale-125'
+                : ''}"
             >
               {$cartCount}
             </span>
