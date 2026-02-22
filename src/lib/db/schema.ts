@@ -37,6 +37,7 @@ export const banners = sqliteTable('banners', {
     ctaText: text('cta_text'),
     ctaLink: text('cta_link'),
     image: text('image'),
+    backgroundImage: text('background_image'),
     isActive: integer('is_active', { mode: 'boolean' }).default(true),
     sortOrder: integer('sort_order').default(0)
 });

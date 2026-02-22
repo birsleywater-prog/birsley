@@ -107,28 +107,52 @@
 
 <!-- ─── HERO ──────────────────────────────────────────────────────────────── -->
 <section
-    class="relative min-h-[92vh] flex items-center bg-hero-gradient overflow-hidden"
+    class="relative min-h-[92vh] flex items-center overflow-hidden bg-gray-50"
 >
-    <!-- Background decorative circles -->
-    <div
-        class="absolute top-20 right-10 w-72 h-72 bg-water-light rounded-full opacity-40 blur-3xl pointer-events-none"
-    ></div>
-    <div
-        class="absolute bottom-10 left-10 w-56 h-56 bg-brand-100 rounded-full opacity-30 blur-2xl pointer-events-none"
-    ></div>
+    {#each data.banners as banner, i}
+        <div
+            class="transition-all duration-1000 absolute inset-0 flex items-center"
+            style="opacity: {i === currentBanner
+                ? 1
+                : 0}; pointer-events: {i === currentBanner ? 'auto' : 'none'};"
+        >
+            <!-- Background Layer -->
+            <div class="absolute inset-0 z-0">
+                {#if banner.backgroundImage}
+                    <img
+                        src={banner.backgroundImage}
+                        alt=""
+                        class="w-full h-full object-cover"
+                    />
+                    <div
+                        class="absolute inset-0 bg-white/60 backdrop-blur-[2px]"
+                    ></div>
+                {:else}
+                    <div
+                        class="w-full h-full bg-hero-gradient opacity-40"
+                    ></div>
+                {/if}
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
-        {#each data.banners as banner, i}
+                <!-- Decorative Circles -->
+                <div
+                    class="absolute top-20 right-10 w-72 h-72 bg-water-light rounded-full opacity-30 blur-3xl"
+                ></div>
+                <div
+                    class="absolute bottom-10 left-10 w-56 h-56 bg-brand-100 rounded-full opacity-20 blur-2xl"
+                ></div>
+            </div>
+
             <div
-                class="transition-all duration-700 absolute inset-0 flex items-center px-4 sm:px-6 lg:px-8"
-                style="opacity: {i === currentBanner
-                    ? 1
-                    : 0}; pointer-events: {i === currentBanner
-                    ? 'auto'
-                    : 'none'};"
+                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 relative z-10"
             >
-                <div class="max-w-7xl mx-auto w-full">
-                    <div class="max-w-2xl">
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20"
+                >
+                    <div
+                        class="max-w-2xl {banner.image
+                            ? ''
+                            : 'lg:col-span-2 mx-auto text-center'}"
+                    >
                         <div
                             class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold tracking-widest uppercase rounded-full mb-6 border border-brand-100"
                         >
@@ -140,11 +164,17 @@
                             {banner.title}
                         </h1>
                         <p
-                            class="text-lg text-gray-500 mb-10 max-w-xl leading-relaxed"
+                            class="text-lg text-gray-500 mb-10 max-w-xl leading-relaxed {banner.image
+                                ? ''
+                                : 'mx-auto'}"
                         >
                             {banner.subtitle}
                         </p>
-                        <div class="flex flex-wrap gap-4">
+                        <div
+                            class="flex flex-wrap gap-4 {banner.image
+                                ? ''
+                                : 'justify-center'}"
+                        >
                             {#if banner.ctaText && banner.ctaLink}
                                 <a
                                     href={banner.ctaLink}
@@ -162,7 +192,11 @@
                         </div>
 
                         <!-- Stats row -->
-                        <div class="flex flex-wrap gap-10 mt-14">
+                        <div
+                            class="flex flex-wrap gap-10 mt-14 {banner.image
+                                ? ''
+                                : 'justify-center'}"
+                        >
                             {#each [["25+", "Years Experience"], ["6+", "Product Variants"], ["BIS", "Certified"]] as [num, label]}
                                 <div>
                                     <div
@@ -177,14 +211,34 @@
                             {/each}
                         </div>
                     </div>
+
+                    {#if banner.image}
+                        <div
+                            class="hidden lg:flex relative group mt-10 lg:mt-0 max-w-sm mx-auto lg:max-w-none justify-center"
+                        >
+                            <div class="relative z-10 animate-float">
+                                <img
+                                    src={banner.image}
+                                    alt={banner.title}
+                                    class="w-auto h-auto max-h-[300px] lg:max-h-[450px] object-contain drop-shadow-2xl rounded-3xl"
+                                />
+                            </div>
+                            <!-- Background glow for image -->
+                            <div
+                                class="absolute inset-0 bg-brand-400/20 blur-[100px] rounded-full scale-75 -z-0"
+                            ></div>
+                        </div>
+                    {/if}
                 </div>
             </div>
-        {/each}
+        </div>
+    {/each}
 
-        <!-- Banner dots if multiple -->
+    <!-- Overlay Dots Navigation (Fixed relative to section) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {#if data.banners.length > 1}
             <div
-                class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2"
+                class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20"
             >
                 {#each data.banners as _, i}
                     <button
@@ -267,7 +321,7 @@
                             <img
                                 src={product.image}
                                 alt={product.name}
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                             />
                         {:else}
                             <div

@@ -101,7 +101,7 @@
                                 <img
                                     src={product.image}
                                     alt={product.name}
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                                 />
                             {:else}
                                 <div

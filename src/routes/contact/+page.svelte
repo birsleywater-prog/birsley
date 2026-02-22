@@ -6,6 +6,7 @@
         PUBLIC_PHONE_DISPLAY,
         PUBLIC_PHONE_LINK,
         PUBLIC_CONTACT_EMAIL,
+        PUBLIC_MAP_EMBED_URL,
     } from "$env/static/public";
 
     export let form: ActionData;
@@ -223,6 +224,29 @@
                         {submitting ? "Sending..." : "Send Message"}
                     </button>
                 </form>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="mt-20">
+            <div
+                class="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden p-2 lg:p-3"
+            >
+                <div
+                    class="aspect-[16/9] md:aspect-[21/9] lg:aspect-[32/9] min-h-[400px] w-full rounded-[1.5rem] overflow-hidden"
+                >
+                    <iframe
+                        title="Our Location"
+                        src={PUBLIC_MAP_EMBED_URL}
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen={true}
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="grayscale hover:grayscale-0 transition-all duration-700"
+                    ></iframe>
+                </div>
             </div>
         </div>
     </div>

@@ -4,7 +4,8 @@
 
     export let data: PageData;
 
-    let currentFilter: "all" | "pending" | "fulfilled" | "spam" = "all";
+    let currentFilter: "all" | "pending" | "dispatched" | "fulfilled" | "spam" =
+        "all";
 
     $: filteredOrders =
         currentFilter === "all"
@@ -35,6 +36,7 @@
     const filters = [
         { id: "all", label: "All Orders" },
         { id: "pending", label: "Pending" },
+        { id: "dispatched", label: "Dispatched" },
         { id: "fulfilled", label: "Fulfilled" },
         { id: "spam", label: "Spam" },
     ] as const;
@@ -70,7 +72,7 @@
     </div>
 
     <div
-        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto"
     >
         <table class="w-full text-left">
             <thead>
@@ -80,6 +82,7 @@
                     <th class="px-6 py-4">Customer</th>
                     <th class="px-6 py-4">Contact</th>
                     <th class="px-6 py-4">Items</th>
+                    <th class="px-6 py-4">Amount</th>
                     <th class="px-6 py-4 text-center">Actions</th>
                 </tr>
             </thead>
@@ -97,9 +100,11 @@
                                     class="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase {order.status ===
                                     'fulfilled'
                                         ? 'bg-green-50 text-green-600'
-                                        : order.status === 'spam'
-                                          ? 'bg-gray-100 text-gray-500'
-                                          : 'bg-orange-50 text-orange-600'}"
+                                        : order.status === 'dispatched'
+                                          ? 'bg-blue-50 text-blue-600'
+                                          : order.status === 'spam'
+                                            ? 'bg-gray-100 text-gray-500'
+                                            : 'bg-orange-50 text-orange-600'}"
                                 >
                                     {order.status}
                                 </span>
@@ -143,8 +148,24 @@
                                 {/each}
                             </div>
                         </td>
+                        <td class="px-6 py-4 text-sm font-bold text-gray-900">
+                            ₹{(order.total ?? 0).toFixed(0)}
+                        </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center gap-2">
+                                {#if order.status === "pending"}
+                                    <button
+                                        on:click={() =>
+                                            updateStatus(
+                                                order.id,
+                                                "dispatched",
+                                            )}
+                                        class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                        title="Mark as Dispatched"
+                                    >
+                                        🚚
+                                    </button>
+                                {/if}
                                 {#if order.status !== "fulfilled"}
                                     <button
                                         on:click={() =>
@@ -180,7 +201,7 @@
                     </tr>
                 {:else}
                     <tr>
-                        <td colspan="4" class="px-6 py-12 text-center">
+                        <td colspan="5" class="px-6 py-12 text-center">
                             <div class="text-gray-400 text-sm">
                                 No {currentFilter !== "all"
                                     ? currentFilter

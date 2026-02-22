@@ -60,7 +60,7 @@
                     <img
                         src={allImages[activeImage]}
                         alt={product.name}
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-contain p-8"
                     />
                 {:else}
                     <div class="w-full h-full flex items-center justify-center">
@@ -85,7 +85,7 @@
                             <img
                                 src={img}
                                 alt=""
-                                class="w-full h-full object-cover"
+                                class="w-full h-full object-contain p-1"
                             />
                         </button>
                     {/each}
@@ -190,7 +190,7 @@
                                 <img
                                     src={rel.image}
                                     alt={rel.name}
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                                 />
                             {:else}
                                 <span class="text-4xl">💧</span>
