@@ -45,10 +45,8 @@
 </script>
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-  class:bg-white={scrolled}
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-brand-50"
   class:shadow-sm={scrolled}
-  class:bg-transparent={!scrolled}
 >
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 md:h-20">
@@ -208,7 +206,7 @@
 
   <!-- Mobile menu -->
   {#if mobileOpen}
-    <div class="md:hidden bg-white border-t border-gray-100 shadow-lg">
+    <div class="md:hidden bg-brand-50 border-t border-gray-100 shadow-lg">
       <div class="px-4 py-4 space-y-1">
         {#each navLinks as link}
           <a
