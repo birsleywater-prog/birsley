@@ -68,17 +68,42 @@
             <h3 class="font-heading font-bold text-xl mb-6">Post Editor</h3>
             <!-- Editor UI... title/slug/excerpt/content -->
             <div class="space-y-4">
-                <input
-                    type="text"
-                    bind:value={editing.title}
-                    placeholder="Post Title"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50"
-                />
-                <textarea
-                    bind:value={editing.content}
-                    placeholder="Post content (HTML)..."
-                    class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 h-64"
-                ></textarea>
+                <div>
+                    <label class="label" for="blog-title">Title</label>
+                    <input
+                        id="blog-title"
+                        type="text"
+                        bind:value={editing.title}
+                        class="input"
+                    />
+                </div>
+                <div>
+                    <label class="label" for="blog-slug">Slug</label>
+                    <input
+                        id="blog-slug"
+                        type="text"
+                        bind:value={editing.slug}
+                        class="input"
+                    />
+                </div>
+                <div>
+                    <label class="label" for="blog-excerpt">Excerpt</label>
+                    <textarea
+                        id="blog-excerpt"
+                        bind:value={editing.excerpt}
+                        class="input h-20"
+                    ></textarea>
+                </div>
+                <div>
+                    <label class="label" for="blog-content"
+                        >Content (HTML)</label
+                    >
+                    <textarea
+                        id="blog-content"
+                        bind:value={editing.content}
+                        class="input h-48"
+                    ></textarea>
+                </div>
             </div>
             <div class="mt-8 flex justify-end gap-3">
                 <button on:click={() => (showModal = false)} class="btn-ghost"

@@ -107,35 +107,55 @@
             <h3 class="font-heading font-bold text-xl mb-6">Banner Editor</h3>
             <!-- Form fields... simplified for brevity, title/subtitle/cta/sort -->
             <div class="space-y-4">
-                <input
-                    type="text"
-                    bind:value={editing.title}
-                    placeholder="Title"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
-                />
-                <input
-                    type="text"
-                    bind:value={editing.subtitle}
-                    placeholder="Subtitle"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
-                />
-                <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="label" for="ban-title">Title</label>
                     <input
+                        id="ban-title"
                         type="text"
-                        bind:value={editing.ctaText}
-                        placeholder="CTA Text"
-                        class="px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
-                    />
-                    <input
-                        type="text"
-                        bind:value={editing.ctaLink}
-                        placeholder="CTA Link"
-                        class="px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
+                        bind:value={editing.title}
+                        placeholder="Title"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
                     />
                 </div>
+                <div>
+                    <label class="label" for="ban-subtitle">Subtitle</label>
+                    <input
+                        id="ban-subtitle"
+                        type="text"
+                        bind:value={editing.subtitle}
+                        placeholder="Subtitle"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label" for="ban-cta-text">CTA Text</label>
+                        <input
+                            id="ban-cta-text"
+                            type="text"
+                            bind:value={editing.ctaText}
+                            placeholder="CTA Text"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
+                        />
+                    </div>
+                    <div>
+                        <label class="label" for="ban-cta-link">CTA Link</label>
+                        <input
+                            id="ban-cta-link"
+                            type="text"
+                            bind:value={editing.ctaLink}
+                            placeholder="CTA Link"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-sm"
+                        />
+                    </div>
+                </div>
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" bind:checked={editing.isActive} />
-                    <span class="text-sm">Is Active</span>
+                    <input
+                        id="ban-active"
+                        type="checkbox"
+                        bind:checked={editing.isActive}
+                    />
+                    <label for="ban-active" class="text-sm">Is Active</label>
                 </div>
             </div>
             <div class="mt-8 flex justify-end gap-3">
