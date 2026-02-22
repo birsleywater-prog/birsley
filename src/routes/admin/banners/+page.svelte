@@ -103,14 +103,14 @@
     <div class="grid grid-cols-1 gap-6">
         {#each data.banners as banner}
             <div
-                class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 group"
+                class="bg-white p-4 md:p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 group"
             >
                 <div
-                    class="flex flex-col md:flex-row gap-6 items-start md:items-center flex-1"
+                    class="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center flex-1 min-w-0"
                 >
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 shrink-0">
                         <div
-                            class="w-20 h-14 rounded-xl bg-gray-50 flex items-center justify-center text-xl border border-gray-100 overflow-hidden relative"
+                            class="w-16 h-12 md:w-20 md:h-14 rounded-xl bg-gray-50 flex items-center justify-center text-lg md:text-xl border border-gray-100 overflow-hidden relative"
                             title="Main Image"
                         >
                             {#if banner.image}
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                         <div
-                            class="w-20 h-14 rounded-xl bg-gray-50 flex items-center justify-center text-xl border border-gray-100 overflow-hidden relative"
+                            class="w-16 h-12 md:w-20 md:h-14 rounded-xl bg-gray-50 flex items-center justify-center text-lg md:text-xl border border-gray-100 overflow-hidden relative"
                             title="Background Image"
                         >
                             {#if banner.backgroundImage}
@@ -149,16 +149,18 @@
                         </div>
                     </div>
 
-                    <div class="flex-1 min-w-0">
+                    <div class="flex-1 min-w-0 w-full">
                         <h3
-                            class="font-heading font-bold text-gray-900 truncate"
+                            class="font-heading font-bold text-gray-900 break-words line-clamp-2 md:line-clamp-none"
                         >
                             {banner.title}
                         </h3>
-                        <p class="text-xs text-gray-500 truncate">
+                        <p
+                            class="text-xs text-gray-500 break-words mt-1 line-clamp-3 md:line-clamp-none"
+                        >
                             {banner.subtitle}
                         </p>
-                        <div class="mt-2 flex gap-2">
+                        <div class="mt-2 flex flex-wrap gap-2">
                             <span
                                 class="text-[10px] font-bold px-2 py-0.5 rounded {banner.isActive
                                     ? 'bg-green-50 text-green-600'

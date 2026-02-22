@@ -6,11 +6,70 @@
 
     let currentFilter: "all" | "pending" | "dispatched" | "fulfilled" | "spam" =
         "all";
+    let dateFilter:
+        | "all"
+        | "today"
+        | "yesterday"
+        | "week"
+        | "month"
+        | "year"
+        | "custom" = "all";
+    let customStart = "";
+    let customEnd = "";
 
-    $: filteredOrders =
-        currentFilter === "all"
-            ? data.orders
-            : data.orders.filter((o) => o.status === currentFilter);
+    const isSameDay = (d1: Date, d2: Date) =>
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate();
+
+    $: filteredOrders = data.orders.filter((o) => {
+        // Status filter
+        if (currentFilter !== "all" && o.status !== currentFilter) return false;
+
+        // Date filter
+        if (dateFilter === "all") return true;
+
+        const orderDate = new Date(o.createdAt || new Date());
+        const now = new Date();
+
+        if (dateFilter === "today") return isSameDay(orderDate, now);
+
+        if (dateFilter === "yesterday") {
+            const yesterday = new Date();
+            yesterday.setDate(now.getDate() - 1);
+            return isSameDay(orderDate, yesterday);
+        }
+
+        if (dateFilter === "week") {
+            const weekAgo = new Date();
+            weekAgo.setDate(now.getDate() - 7);
+            return orderDate >= weekAgo;
+        }
+
+        if (dateFilter === "month") {
+            const monthAgo = new Date();
+            monthAgo.setMonth(now.getMonth() - 1);
+            return orderDate >= monthAgo;
+        }
+
+        if (dateFilter === "year") {
+            const yearAgo = new Date();
+            yearAgo.setFullYear(now.getFullYear() - 1);
+            return orderDate >= yearAgo;
+        }
+
+        if (dateFilter === "custom") {
+            if (!customStart || !customEnd) return true;
+            const start = new Date(customStart);
+            const end = new Date(customEnd);
+            end.setHours(23, 59, 59, 999); // Inclusion of full end day
+            return orderDate >= start && orderDate <= end;
+        }
+
+        return true;
+    });
+
+    $: totalValue = filteredOrders.reduce((sum, o) => sum + (o.total || 0), 0);
 
     async function updateStatus(id: number, status: string) {
         if (!confirm(`Mark this order as ${status}?`)) return;
@@ -34,56 +93,149 @@
     }
 
     const filters = [
-        { id: "all", label: "All Orders" },
+        { id: "all", label: "All Status" },
         { id: "pending", label: "Pending" },
         { id: "dispatched", label: "Dispatched" },
         { id: "fulfilled", label: "Fulfilled" },
         { id: "spam", label: "Spam" },
     ] as const;
+
+    const dateFilters = [
+        { id: "all", label: "Anytime" },
+        { id: "today", label: "Today" },
+        { id: "yesterday", label: "Yesterday" },
+        { id: "week", label: "Past Week" },
+        { id: "month", label: "Past Month" },
+        { id: "year", label: "Past Year" },
+        { id: "custom", label: "Custom Range" },
+    ] as const;
 </script>
 
 <div class="space-y-6">
-    <div
-        class="flex flex-col md:flex-row md:items-center justify-between gap-4"
-    >
-        <h2 class="text-2xl font-heading font-extrabold text-gray-900">
-            Orders / Enquiries
-        </h2>
-
-        <div class="flex p-1 bg-gray-100 rounded-xl w-fit">
-            {#each filters as filter}
-                <button
-                    class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all {currentFilter ===
-                    filter.id
-                        ? 'bg-white text-brand-600 shadow-sm'
-                        : 'text-gray-500 hover:text-gray-700'}"
-                    on:click={() => (currentFilter = filter.id)}
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <div
+                class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+            >
+                Total Orders
+            </div>
+            <div class="text-3xl font-extrabold text-gray-900">
+                {filteredOrders.length}
+            </div>
+            <div class="text-xs text-gray-400 mt-1">Found based on filters</div>
+        </div>
+        <div
+            class="bg-brand-500 p-6 rounded-2xl shadow-lg shadow-brand-100 text-white"
+        >
+            <div
+                class="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1"
+            >
+                Total Revenue
+            </div>
+            <div class="text-3xl font-extrabold">
+                ₹{totalValue.toLocaleString("en-IN")}
+            </div>
+            <div class="text-xs text-white/70 mt-1">Sum of filtered orders</div>
+        </div>
+        <div
+            class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-center"
+        >
+            <div
+                class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2"
+            >
+                Current View
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span
+                    class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-[10px] font-bold uppercase"
+                    >{currentFilter}</span
                 >
-                    {filter.label}
-                    <span class="ml-1 opacity-50">
-                        ({filter.id === "all"
-                            ? data.orders.length
-                            : data.orders.filter((o) => o.status === filter.id)
-                                  .length})
-                    </span>
-                </button>
-            {/each}
+                <span
+                    class="px-2 py-0.5 bg-brand-50 text-brand-600 rounded text-[10px] font-bold uppercase"
+                    >{dateFilter.replace("all", "Anytime")}</span
+                >
+            </div>
         </div>
     </div>
 
     <div
-        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto"
+        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4"
     >
-        <table class="w-full text-left">
-            <thead>
+        <div
+            class="flex flex-col lg:flex-row lg:items-center justify-between gap-4"
+        >
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+                <div
+                    class="flex p-1 bg-gray-100 rounded-xl overflow-x-auto no-scrollbar max-w-full"
+                >
+                    <div class="flex flex-nowrap min-w-max">
+                        {#each filters as filter}
+                            <button
+                                class="px-3 py-1 text-[10px] font-bold rounded-lg transition-all whitespace-nowrap {currentFilter ===
+                                filter.id
+                                    ? 'bg-white text-brand-600 shadow-sm'
+                                    : 'text-gray-500 hover:text-gray-700'}"
+                                on:click={() => (currentFilter = filter.id)}
+                            >
+                                {filter.label}
+                            </button>
+                        {/each}
+                    </div>
+                </div>
+
+                <div
+                    class="flex p-1 bg-gray-100 rounded-xl overflow-x-auto no-scrollbar max-w-full"
+                >
+                    <div class="flex flex-nowrap min-w-max">
+                        {#each dateFilters as dFilter}
+                            <button
+                                class="px-3 py-1 text-[10px] font-bold rounded-lg transition-all whitespace-nowrap {dateFilter ===
+                                dFilter.id
+                                    ? 'bg-white text-brand-600 shadow-sm'
+                                    : 'text-gray-500 hover:text-gray-700'}"
+                                on:click={() => (dateFilter = dFilter.id)}
+                            >
+                                {dFilter.label}
+                            </button>
+                        {/each}
+                    </div>
+                </div>
+            </div>
+
+            {#if dateFilter === "custom"}
+                <div class="flex items-center gap-2 animate-fade-in">
+                    <input
+                        type="date"
+                        bind:value={customStart}
+                        class="text-xs p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 ring-brand-500/20"
+                    />
+                    <span class="text-gray-400 text-xs">to</span>
+                    <input
+                        type="date"
+                        bind:value={customEnd}
+                        class="text-xs p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 ring-brand-500/20"
+                    />
+                </div>
+            {/if}
+        </div>
+    </div>
+
+    <div
+        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-auto max-h-[calc(100vh-400px)] min-h-[400px]"
+    >
+        <table class="w-full text-left border-separate border-spacing-0">
+            <thead class="sticky top-0 z-10 bg-white">
                 <tr
                     class="bg-gray-50 text-[10px] font-bold text-gray-400 uppercase tracking-widest"
                 >
-                    <th class="px-6 py-4">Customer</th>
-                    <th class="px-6 py-4">Contact</th>
-                    <th class="px-6 py-4">Items</th>
-                    <th class="px-6 py-4">Amount</th>
-                    <th class="px-6 py-4 text-center">Actions</th>
+                    <th class="px-6 py-4 border-b border-gray-100">Customer</th>
+                    <th class="px-6 py-4 border-b border-gray-100">Contact</th>
+                    <th class="px-6 py-4 border-b border-gray-100">Items</th>
+                    <th class="px-6 py-4 border-b border-gray-100">Amount</th>
+                    <th class="px-6 py-4 text-center border-b border-gray-100"
+                        >Actions</th
+                    >
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-50">
