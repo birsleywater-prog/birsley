@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { PUBLIC_APP_NAME, PUBLIC_SITE_URL } from "$env/static/public";
+
   export let title: string;
   export let description: string;
-  export let image = '/images/og-default.jpg';
-  export let url = '';
-  export let type: 'website' | 'article' | 'product' = 'website';
+  export let image = "/images/og-default.jpg";
+  export let url = "";
+  export let type: "website" | "article" | "product" = "website";
   export let jsonLd: object | null = null;
-  export let keywords = '';
+  export let keywords = "";
 
-  const siteUrl = 'https://bizaree.in';
+  const siteUrl = PUBLIC_SITE_URL || "https://bizaree.in";
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
-  const fullImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+  const fullImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
 </script>
 
 <svelte:head>
@@ -25,7 +27,10 @@
   <meta property="og:description" content={description} />
   <meta property="og:image" content={fullImage} />
   <meta property="og:url" content={fullUrl} />
-  <meta property="og:site_name" content="Bizaree Water" />
+  <meta
+    property="og:site_name"
+    content="{PUBLIC_APP_NAME || 'Bizaree'} Water"
+  />
   <meta property="og:locale" content="en_IN" />
 
   <!-- Twitter Card -->

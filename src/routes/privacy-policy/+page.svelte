@@ -1,12 +1,19 @@
+<script lang="ts">
+    import { PUBLIC_APP_NAME, PUBLIC_SITE_URL } from "$env/static/public";
+    const siteUrl =
+        PUBLIC_SITE_URL?.replace("https://", "")?.replace("http://", "") ||
+        "bizaree.in";
+</script>
+
 <div class="py-20 max-w-4xl mx-auto px-6">
     <h1 class="text-4xl font-heading font-extrabold mb-8 text-gray-900">
         Privacy Policy
     </h1>
     <div class="prose prose-lg text-gray-600 space-y-6">
         <p>
-            Your privacy is important to us. It is Bizaree's policy to respect
-            your privacy regarding any information we may collect from you
-            across our website, https://bizaree.in, and other sites we own and
+            Your privacy is important to us. It is {PUBLIC_APP_NAME}'s policy to
+            respect your privacy regarding any information we may collect from
+            you across our website, {siteUrl}, and other sites we own and
             operate.
         </p>
         <p>

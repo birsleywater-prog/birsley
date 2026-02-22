@@ -1,11 +1,12 @@
 <script lang="ts">
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { cart, cartTotal, cartCount } from "$lib/stores/cart";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
 </script>
 
 <SEOHead
-    title="Your Cart | Bizaree Water"
-    description="Review your Bizaree water enquiry list before placing your order."
+    title="Your Cart | {PUBLIC_APP_NAME} Water"
+    description="Review your {PUBLIC_APP_NAME} water enquiry list before placing your order."
     url="/cart"
 />
 

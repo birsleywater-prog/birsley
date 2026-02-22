@@ -1,3 +1,17 @@
+import {
+    PUBLIC_APP_NAME,
+    PUBLIC_SITE_URL,
+    PUBLIC_PHONE_LINK,
+    PUBLIC_CONTACT_EMAIL,
+    PUBLIC_FACEBOOK_URL,
+    PUBLIC_INSTAGRAM_URL,
+    PUBLIC_YOUTUBE_URL
+} from '$env/static/public';
+
+const SITE_NAME = PUBLIC_APP_NAME || 'Bizaree';
+const SITE_URL = PUBLIC_SITE_URL || 'https://bizaree.in';
+const DEFAULT_IMAGE = '/images/og-default.jpg';
+
 export interface SEOConfig {
     title: string;
     description: string;
@@ -7,10 +21,6 @@ export interface SEOConfig {
     keywords?: string;
     noindex?: boolean;
 }
-
-const SITE_NAME = 'Bizaree Water';
-const SITE_URL = 'https://bizaree.in';
-const DEFAULT_IMAGE = '/images/og-default.jpg';
 
 export function buildSEO(config: SEOConfig) {
     const title = config.title.includes(SITE_NAME)
@@ -57,20 +67,20 @@ export function buildProductJsonLd(product: {
 export const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: SITE_NAME,
+    name: `${SITE_NAME} Water`,
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.png`,
     contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+91-9748887899',
+        telephone: PUBLIC_PHONE_LINK?.replace('tel:', '') || '+91-9748887899',
         contactType: 'customer service',
         availableLanguage: ['English', 'Hindi', 'Bengali']
     },
     sameAs: [
-        'https://www.facebook.com/share/7QhKgNDS4nxnS2vU',
-        'https://www.instagram.com/bizareewater/',
-        'https://www.youtube.com/channel/UCW4uj0kb61H2nKQP7H-FZCw'
-    ]
+        PUBLIC_FACEBOOK_URL,
+        PUBLIC_INSTAGRAM_URL,
+        PUBLIC_YOUTUBE_URL
+    ].filter(Boolean)
 };
 
 export function buildBlogJsonLd(post: {

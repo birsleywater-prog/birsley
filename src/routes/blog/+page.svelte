@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import SEOHead from "$lib/components/SEOHead.svelte";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
     export let data: PageData;
 </script>
 
 <SEOHead
-    title="Blog | Bizaree Water"
-    description="Read the latest articles on hydration, water quality, and health tips from Bizaree Water."
+    title="Blog | {PUBLIC_APP_NAME} Water"
+    description="Read the latest articles on hydration, water quality, and health tips from {PUBLIC_APP_NAME} Water."
     url="/blog"
 />
 

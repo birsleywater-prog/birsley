@@ -1,10 +1,11 @@
 <script lang="ts">
     import SEOHead from "$lib/components/SEOHead.svelte";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
 </script>
 
 <SEOHead
-    title="About Bizaree | West Bengal's First Automated Water Plant"
-    description="Learn about Bizaree — West Bengal's pioneer automated packaged drinking water plant with 25+ years of industry experience and BIS certified products."
+    title="About {PUBLIC_APP_NAME} | West Bengal's First Automated Water Plant"
+    description="Learn about {PUBLIC_APP_NAME} — West Bengal's pioneer automated packaged drinking water plant with 25+ years of industry experience and BIS certified products."
     url="/about"
 />
 
@@ -16,7 +17,7 @@
                 <p
                     class="text-xs font-semibold tracking-widest text-brand-200 uppercase mb-4"
                 >
-                    About Bizaree
+                    About {PUBLIC_APP_NAME}
                 </p>
                 <h1
                     class="font-heading font-extrabold text-4xl md:text-5xl mb-6 leading-tight"
@@ -57,11 +58,11 @@
                         Pure Water, Pure Commitment
                     </h2>
                     <p class="text-gray-500 leading-relaxed mb-4">
-                        Bizaree was founded with a singular mission — to bring
-                        the highest quality packaged drinking water to homes and
-                        businesses across West Bengal. As the state's first
-                        fully automated water plant, we combine advanced
-                        technology with rigorous quality control.
+                        {PUBLIC_APP_NAME} was founded with a singular mission — to
+                        bring the highest quality packaged drinking water to homes
+                        and businesses across West Bengal. As the state's first fully
+                        automated water plant, we combine advanced technology with
+                        rigorous quality control.
                     </p>
                     <p class="text-gray-500 leading-relaxed mb-6">
                         With over 25 years of industry experience, our team

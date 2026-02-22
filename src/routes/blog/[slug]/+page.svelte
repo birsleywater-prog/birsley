@@ -2,12 +2,13 @@
     import type { PageData } from "./$types";
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { buildBlogJsonLd } from "$lib/utils/seo";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
     export let data: PageData;
     $: post = data.post;
 </script>
 
 <SEOHead
-    title="{post.title} | Bizaree Water Blog"
+    title="{post.title} | {PUBLIC_APP_NAME} Water Blog"
     description={post.excerpt ?? ""}
     url="/blog/{post.slug}"
     type="article"

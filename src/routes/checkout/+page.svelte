@@ -3,14 +3,15 @@
     import { cart, cartTotal } from "$lib/stores/cart";
     import { enhance } from "$app/forms";
     import type { ActionData } from "./$types";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
     export let form: ActionData;
 
     let submitting = false;
 </script>
 
 <SEOHead
-    title="Checkout | Bizaree Water"
-    description="Complete your Bizaree water order enquiry."
+    title="Checkout | {PUBLIC_APP_NAME} Water"
+    description="Complete your {PUBLIC_APP_NAME} water order enquiry."
     url="/checkout"
 />
 

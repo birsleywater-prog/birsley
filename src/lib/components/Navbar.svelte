@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { cartCount } from "$lib/stores/cart";
   import { onMount } from "svelte";
+  import { PUBLIC_APP_NAME } from "$env/static/public";
 
   let scrolled = false;
   let mobileOpen = false;
@@ -64,7 +65,7 @@
         <span
           class="font-heading font-extrabold text-2xl tracking-widest text-brand-600 uppercase"
         >
-          BIZAREE
+          {PUBLIC_APP_NAME || "BIZAREE"}
         </span>
         <span
           class="text-[9px] tracking-[0.3em] text-gray-400 uppercase font-medium"

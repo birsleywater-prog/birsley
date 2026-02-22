@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import SEOHead from "$lib/components/SEOHead.svelte";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
     export let data: PageData;
 </script>
 
 <SEOHead
-    title="Categories | Bizaree Water"
-    description="Browse Bizaree's water product categories — bottles and large jars for every need."
+    title="Categories | {PUBLIC_APP_NAME} Water"
+    description="Browse {PUBLIC_APP_NAME}'s water product categories — bottles and large jars for every need."
     url="/categories"
 />
 

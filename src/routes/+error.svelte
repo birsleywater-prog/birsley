@@ -1,6 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import { onMount } from "svelte";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
 
     // Animation trigger
     let mounted = false;
@@ -16,7 +17,8 @@
 </script>
 
 <svelte:head>
-    <title>{$page.status} - {errorTitle} | Bizaree</title>
+    <title>{$page.status} - {errorTitle} | {PUBLIC_APP_NAME || "Bizaree"}</title
+    >
 </svelte:head>
 
 <div

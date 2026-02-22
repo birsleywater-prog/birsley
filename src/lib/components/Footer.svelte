@@ -1,4 +1,13 @@
 <script lang="ts">
+  import {
+    PUBLIC_FACEBOOK_URL,
+    PUBLIC_INSTAGRAM_URL,
+    PUBLIC_YOUTUBE_URL,
+    PUBLIC_PHONE_DISPLAY,
+    PUBLIC_PHONE_LINK,
+    PUBLIC_CONTACT_EMAIL,
+    PUBLIC_APP_NAME,
+  } from "$env/static/public";
 </script>
 
 <footer class="bg-gray-950 text-gray-300">
@@ -10,7 +19,7 @@
         <div class="mb-4">
           <span
             class="font-heading font-extrabold text-2xl tracking-widest text-white uppercase"
-            >BIZAREE</span
+            >{PUBLIC_APP_NAME || "BIZAREE"}</span
           >
           <span
             class="block text-[10px] tracking-[0.3em] text-gray-500 uppercase font-medium mt-0.5"
@@ -24,58 +33,63 @@
         </p>
         <!-- Social links -->
         <div class="flex items-center gap-3">
-          <a
-            href="https://www.facebook.com/share/7QhKgNDS4nxnS2vU"
-            target="_blank"
-            rel="noopener"
-            aria-label="Facebook"
-            class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
-          >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
-              ><path
-                d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
-              /></svg
+          {#if PUBLIC_FACEBOOK_URL}
+            <a
+              href={PUBLIC_FACEBOOK_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="Facebook"
+              class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
             >
-          </a>
-          <a
-            href="https://www.instagram.com/bizareewater/"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-            class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
-          >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
-              ><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path
-                d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                ><path
+                  d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                /></svg
+              >
+            </a>
+          {/if}
+          {#if PUBLIC_INSTAGRAM_URL}
+            <a
+              href={PUBLIC_INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram"
+              class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
+            >
+              <svg
+                class="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
-              /><line
-                x1="17.5"
-                y1="6.5"
-                x2="17.51"
-                y2="6.5"
-                stroke="currentColor"
-                stroke-width="2"
-              /></svg
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+          {/if}
+          {#if PUBLIC_YOUTUBE_URL}
+            <a
+              href={PUBLIC_YOUTUBE_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="YouTube"
+              class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
             >
-          </a>
-          <a
-            href="https://www.youtube.com/channel/UCW4uj0kb61H2nKQP7H-FZCw"
-            target="_blank"
-            rel="noopener"
-            aria-label="YouTube"
-            class="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-500 hover:text-white transition-all"
-          >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
-              ><path
-                d="M22.54 6.42a2.78 2.78 0 00-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"
-              /><polygon
-                points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
-                fill="gray-900"
-              /></svg
-            >
-          </a>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 00-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"
+                ></path>
+                <polygon
+                  points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                  fill="white"
+                ></polygon>
+              </svg>
+            </a>
+          {/if}
         </div>
       </div>
 
@@ -142,9 +156,9 @@
               />
             </svg>
             <a
-              href="tel:+919748887899"
+              href={PUBLIC_PHONE_LINK}
               class="text-sm text-gray-400 hover:text-brand-400 transition-colors"
-              >(+91) 9748887899</a
+              >{PUBLIC_PHONE_DISPLAY}</a
             >
           </li>
           <li class="flex items-start gap-3">
@@ -162,9 +176,9 @@
               />
             </svg>
             <a
-              href="mailto:ghosal2013@gmail.com"
+              href="mailto:{PUBLIC_CONTACT_EMAIL}"
               class="text-sm text-gray-400 hover:text-brand-400 transition-colors"
-              >ghosal2013@gmail.com</a
+              >{PUBLIC_CONTACT_EMAIL}</a
             >
           </li>
         </ul>

@@ -1,12 +1,13 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { ActionData } from "./$types";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
     export let form: ActionData;
     let submitting = false;
 </script>
 
 <svelte:head>
-    <title>Admin Login | Bizaree Water</title>
+    <title>Admin Login | {PUBLIC_APP_NAME} Water</title>
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 flex items-center justify-center p-4">

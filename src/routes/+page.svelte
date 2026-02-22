@@ -3,7 +3,12 @@
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { organizationJsonLd } from "$lib/utils/seo";
     import { cart } from "$lib/stores/cart";
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
+    import {
+        PUBLIC_PHONE_DISPLAY,
+        PUBLIC_PHONE_LINK,
+        PUBLIC_APP_NAME,
+    } from "$env/static/public";
 
     export let data: PageData;
 
@@ -51,7 +56,7 @@
         {
             step: "02",
             title: "Share Requirements",
-            desc: "Give Bizaree your specifications for superior hydration.",
+            desc: `Give ${PUBLIC_APP_NAME} your specifications for superior hydration.`,
         },
         {
             step: "03",
@@ -78,11 +83,11 @@
 </script>
 
 <SEOHead
-    title="Bizaree Water — West Bengal's Premium Packaged Drinking Water"
-    description="Bizaree is West Bengal's first automated packaged drinking water plant. Premium quality 250ml to 20L water bottles and jars. BIS certified. 25+ years of experience."
+    title="{PUBLIC_APP_NAME} Water — West Bengal's Premium Packaged Drinking Water"
+    description="{PUBLIC_APP_NAME} is West Bengal's first automated packaged drinking water plant. Premium quality 250ml to 20L water bottles and jars. BIS certified. 25+ years of experience."
     url="/"
     jsonLd={organizationJsonLd}
-    keywords="packaged drinking water, mineral water, bizaree water, West Bengal water plant, 20L jar, water delivery"
+    keywords="packaged drinking water, mineral water, {PUBLIC_APP_NAME} water, West Bengal water plant, 20L jar, water delivery"
 />
 
 <!-- ─── HERO ──────────────────────────────────────────────────────────────── -->
@@ -508,8 +513,8 @@
             orders. Call us or book an appointment.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="tel:+919748887899" class="btn-primary px-8 py-4 text-base"
-                >📞 (+91) 9748887899</a
+            <a href={PUBLIC_PHONE_LINK} class="btn-primary px-8 py-4 text-base"
+                >📞 {PUBLIC_PHONE_DISPLAY}</a
             >
             <a
                 href="/contact"

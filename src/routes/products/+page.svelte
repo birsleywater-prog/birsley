@@ -4,6 +4,7 @@
     import { cart } from "$lib/stores/cart";
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
+    import { PUBLIC_APP_NAME } from "$env/static/public";
 
     export let data: PageData;
 
@@ -33,10 +34,10 @@
 </script>
 
 <SEOHead
-    title="Products | Bizaree Water"
-    description="Browse Bizaree's complete range of packaged drinking water — 250ml bottles to 20L jars. BIS certified. Bulk orders welcome."
+    title="Products | {PUBLIC_APP_NAME} Water"
+    description="Browse {PUBLIC_APP_NAME}'s complete range of packaged drinking water — 250ml bottles to 20L jars. BIS certified. Bulk orders welcome."
     url="/products"
-    keywords="packaged water products, 250ml bottle, 500ml bottle, 20 litre jar, bulk water order"
+    keywords="packaged water products, 250ml bottle, 500ml bottle, 20 litre jar, bulk water order, {PUBLIC_APP_NAME}"
 />
 
 <div class="pt-4 pb-20">

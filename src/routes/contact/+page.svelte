@@ -2,14 +2,22 @@
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { enhance } from "$app/forms";
     import type { ActionData } from "./$types";
+    import {
+        PUBLIC_PHONE_DISPLAY,
+        PUBLIC_PHONE_LINK,
+        PUBLIC_CONTACT_EMAIL,
+    } from "$env/static/public";
+
     export let form: ActionData;
+
+    import { PUBLIC_APP_NAME } from "$env/static/public";
 
     let submitting = false;
 </script>
 
 <SEOHead
-    title="Contact Us | Bizaree Water"
-    description="Contact Bizaree Water for bulk orders, enquiries, or distributor partnerships. Call (+91) 9748887899 or mail ghosal2013@gmail.com."
+    title="Contact Us | {PUBLIC_APP_NAME} Water"
+    description="Contact {PUBLIC_APP_NAME} Water for bulk orders, enquiries, or distributor partnerships. Call {PUBLIC_PHONE_DISPLAY} or mail {PUBLIC_CONTACT_EMAIL}."
     url="/contact"
 />
 
@@ -59,9 +67,9 @@
                                     Call Us
                                 </div>
                                 <a
-                                    href="tel:+919748887899"
+                                    href={PUBLIC_PHONE_LINK}
                                     class="text-brand-600 hover:underline"
-                                    >(+91) 9748887899</a
+                                    >{PUBLIC_PHONE_DISPLAY}</a
                                 >
                             </div>
                         </div>
@@ -88,9 +96,9 @@
                                     Mail Us
                                 </div>
                                 <a
-                                    href="mailto:ghosal2013@gmail.com"
+                                    href="mailto:{PUBLIC_CONTACT_EMAIL}"
                                     class="text-brand-600 hover:underline"
-                                    >ghosal2013@gmail.com</a
+                                    >{PUBLIC_CONTACT_EMAIL}</a
                                 >
                             </div>
                         </div>
