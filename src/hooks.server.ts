@@ -1,10 +1,15 @@
 import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'bizaree@admin2024';
+import { env } from '$env/dynamic/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
+    const ADMIN_PASSWORD = env.ADMIN_PASSWORD || '';
     const { pathname } = event.url;
+
+    if (!ADMIN_PASSWORD) {
+        console.warn('WARNING: ADMIN_PASSWORD environment variable is not set.');
+    }
 
     // Protect all admin routes except /admin/login
     if (pathname.startsWith('/admin') && pathname !== '/admin/login') {

@@ -3,13 +3,17 @@ import { drizzle } from 'drizzle-orm/libsql';
 import * as schema from './schema';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
+import { env } from '$env/dynamic/private';
 
-// Ensure /db directory exists
-const dbDir = join(process.cwd(), 'db');
-mkdirSync(dbDir, { recursive: true });
+// Ensure /db directory exists (local only)
+if (!env.DATABASE_URL || env.DATABASE_URL.startsWith('file:')) {
+  const dbDir = join(process.cwd(), 'db');
+  mkdirSync(dbDir, { recursive: true });
+}
 
 const client = createClient({
-  url: `file:${join(dbDir, 'database.sqlite')}`
+  url: env.DATABASE_URL || 'file:db/database.sqlite',
+  authToken: env.DATABASE_AUTH_TOKEN
 });
 
 export const db = drizzle(client, { schema });
