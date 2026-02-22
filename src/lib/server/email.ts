@@ -1,10 +1,16 @@
 import * as nodemailer from 'nodemailer';
-import { env } from '$env/dynamic/private';
-
-// Helper to get env variable
-const getEnv = (key: string, fallback: string = ''): string => {
-    return env[key] || fallback;
-};
+import {
+    SMTP_HOST,
+    SMTP_PORT,
+    SMTP_USER,
+    SMTP_PASS,
+    ADMIN_EMAIL
+} from '$env/static/private';
+import {
+    PUBLIC_APP_NAME,
+    PUBLIC_SITE_URL,
+    PUBLIC_CONTACT_EMAIL
+} from '$env/static/public';
 
 // Theme Constants
 const BRAND_PRIMARY = '#00b398';
@@ -14,10 +20,10 @@ const TEXT_DARK = '#0a0a0a';
 const TEXT_MUTED = '#666666';
 
 function getTransporter() {
-    const smtpHost = getEnv('SMTP_HOST', 'smtp.gmail.com');
-    const smtpPort = parseInt(getEnv('SMTP_PORT', '587'));
-    const smtpUser = getEnv('SMTP_USER');
-    const smtpPass = getEnv('SMTP_PASS');
+    const smtpHost = SMTP_HOST || 'smtp.gmail.com';
+    const smtpPort = parseInt(SMTP_PORT || '587');
+    const smtpUser = SMTP_USER;
+    const smtpPass = SMTP_PASS;
 
     if (!smtpUser || !smtpPass) {
         throw new Error('SMTP_USER or SMTP_PASS is not configured in environment variables.');
@@ -35,8 +41,8 @@ function getTransporter() {
 }
 
 function getEmailWrapper(title: string, content: string) {
-    const appName = getEnv('PUBLIC_APP_NAME', 'BRISLEY');
-    const siteUrl = getEnv('PUBLIC_SITE_URL', 'https://bizaree.in');
+    const appName = PUBLIC_APP_NAME || 'BRISLEY';
+    const siteUrl = PUBLIC_SITE_URL || 'https://bizaree.in';
 
     return `
         <!DOCTYPE html>
@@ -85,9 +91,9 @@ function getEmailWrapper(title: string, content: string) {
 }
 
 export async function sendEnquiryEmail(data: { name: string; email: string; phone?: string; message: string }) {
-    const smtpUser = getEnv('SMTP_USER');
-    const adminEmail = getEnv('ADMIN_EMAIL') || getEnv('PUBLIC_CONTACT_EMAIL') || smtpUser || 'singh.rohitsingh2k@gmail.com';
-    const appName = getEnv('PUBLIC_APP_NAME', 'BRISLEY');
+    const smtpUser = SMTP_USER;
+    const adminEmail = ADMIN_EMAIL || PUBLIC_CONTACT_EMAIL || smtpUser || 'singh.rohitsingh2k@gmail.com';
+    const appName = PUBLIC_APP_NAME || 'BRISLEY';
 
     const content = `
         <div class="field">
@@ -118,9 +124,9 @@ export async function sendEnquiryEmail(data: { name: string; email: string; phon
 }
 
 export async function sendOrderEmail(data: { customerName: string; email: string; phone?: string; address: string; itemsJson: string; total: number }) {
-    const smtpUser = getEnv('SMTP_USER');
-    const adminEmail = getEnv('ADMIN_EMAIL') || getEnv('PUBLIC_CONTACT_EMAIL') || smtpUser || 'singh.rohitsingh2k@gmail.com';
-    const appName = getEnv('PUBLIC_APP_NAME', 'BRISLEY');
+    const smtpUser = SMTP_USER;
+    const adminEmail = ADMIN_EMAIL || PUBLIC_CONTACT_EMAIL || smtpUser || 'singh.rohitsingh2k@gmail.com';
+    const appName = PUBLIC_APP_NAME || 'BRISLEY';
 
     const items = JSON.parse(data.itemsJson);
     const itemsHtml = items.map((item: any) => `

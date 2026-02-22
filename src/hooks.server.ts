@@ -1,10 +1,9 @@
 import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 
-import { env } from '$env/dynamic/private';
+import { ADMIN_PASSWORD } from '$env/static/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
-    const ADMIN_PASSWORD = env.ADMIN_PASSWORD || '';
     const { pathname } = event.url;
 
     if (!ADMIN_PASSWORD) {
