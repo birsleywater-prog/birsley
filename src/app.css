@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Sea Greenish Theme - Active (Refined to Pantone 3275 C: #00B398) */
+  --brand-50: #e0f7f4;
+  --brand-100: #b3efe6;
+  --brand-200: #80e6d6;
+  --brand-300: #4fddc6;
+  --brand-400: #1ad5b7;
+  --brand-500: #00b398;
+  --brand-600: #00a189;
+  --brand-700: #008f7a;
+  --brand-800: #007d6b;
+  --brand-900: #006c5c;
+
+  --water-light: #eafcf9;
+  --water-mid: #99ede1;
+  --water-dark: #00a189;
+
+  /* Previously used Bluish Theme
+  --brand-50: #e0f4ff;
+  --brand-100: #b3e5fc;
+  --brand-200: #81d4fa;
+  --brand-300: #4fc3f7;
+  --brand-400: #29b6f6;
+  --brand-500: #0077B6;
+  --brand-600: #0069a3;
+  --brand-700: #005a8f;
+  --brand-800: #004b7a;
+  --brand-900: #023E8A;
+
+  --water-light: #CAF0F8;
+  --water-mid: #90E0EF;
+  --water-dark: #0096C7;
+  */
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -94,11 +129,11 @@
   }
 
   .bg-water-gradient {
-    background: linear-gradient(135deg, #CAF0F8 0%, #90E0EF 50%, #0077B6 100%);
+    background: linear-gradient(135deg, var(--water-light) 0%, var(--water-mid) 50%, var(--brand-500) 100%);
   }
 
   .bg-hero-gradient {
-    background: linear-gradient(to bottom, #e0f7ff 0%, #ffffff 100%);
+    background: linear-gradient(to bottom, var(--brand-50) 0%, #ffffff 100%);
   }
 }
 
@@ -112,10 +147,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0077B6;
+  background: var(--brand-500);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #005a8f;
+  background: var(--brand-700);
 }
