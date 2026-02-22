@@ -17,7 +17,7 @@ export const actions: Actions = {
             return fail(400, { error: 'Name, email and message are required.' });
         }
 
-        db.insert(contacts).values({ name, email, phone, message }).run();
+        await db.insert(contacts).values({ name, email, phone, message }).run();
         return { success: true };
     }
 };

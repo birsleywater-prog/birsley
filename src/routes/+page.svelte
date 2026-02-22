@@ -328,19 +328,22 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {#each processSteps as step, i}
-                <div class="aos relative" style="transition-delay: {i * 100}ms">
+                <div
+                    class="aos relative group"
+                    style="transition-delay: {i * 100}ms"
+                >
                     <!-- Connector line -->
-                    {#if i < processSteps.length - 1}
+                    {#if i < processSteps.length - 2}
                         <div
                             class="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-brand-200 to-transparent z-0 -translate-y-px"
                         ></div>
                     {/if}
                     <div class="relative z-10">
                         <div
-                            class="w-16 h-16 rounded-2xl bg-brand-50 border-2 border-brand-100 flex items-center justify-center mb-5 group-hover:bg-brand-500 transition-colors"
+                            class="w-16 h-16 rounded-2xl bg-brand-50 border-2 border-brand-100 flex items-center justify-center mb-5 group-hover:bg-brand-500 group-hover:border-brand-500 transition-all duration-300"
                         >
                             <span
-                                class="font-heading font-extrabold text-brand-600 text-xl"
+                                class="font-heading font-extrabold text-brand-600 text-xl group-hover:text-white transition-colors"
                                 >{step.step}</span
                             >
                         </div>

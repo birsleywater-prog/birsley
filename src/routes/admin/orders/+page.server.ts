@@ -3,6 +3,6 @@ import { orders } from '$lib/db/schema';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    const all = await db.select().from(orders).orderBy(orders.createdAt);
+    const all = await db.select().from(orders).orderBy(orders.createdAt).all();
     return { orders: all };
 };
