@@ -5,7 +5,7 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-    const post = db.select().from(blogPosts).where(eq(blogPosts.slug, params.slug)).get();
+    const post = await db.select().from(blogPosts).where(eq(blogPosts.slug, params.slug)).get();
     if (!post) throw error(404, 'Article not found');
     return { post };
 };

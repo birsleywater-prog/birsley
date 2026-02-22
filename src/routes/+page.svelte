@@ -236,16 +236,12 @@
             {#each data.featuredProducts as product, i}
                 <div
                     class="product-card aos rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
-                    class:md:row-span-2={i === 0}
                     style="transition-delay: {i * 80}ms"
                 >
                     <!-- Image placeholder with gradient background -->
                     <a
                         href="/products/{product.slug}"
-                        class="block relative overflow-hidden"
-                        class:h-64={i !== 0}
-                        class:h-96={i === 0}
-                        class:md:h-full={i === 0}
+                        class="block relative overflow-hidden h-64"
                     >
                         {#if product.image}
                             <img

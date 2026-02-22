@@ -4,27 +4,27 @@ import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    const featuredProducts = db
+    const featuredProducts = await db
         .select()
         .from(products)
         .where(eq(products.isFeatured, true))
         .orderBy(products.sortOrder)
         .all();
 
-    const activeBanners = db
+    const activeBanners = await db
         .select()
         .from(banners)
         .where(eq(banners.isActive, true))
         .orderBy(banners.sortOrder)
         .all();
 
-    const activeTestimonials = db
+    const activeTestimonials = await db
         .select()
         .from(testimonials)
         .where(eq(testimonials.isActive, true))
         .all();
 
-    const recentPosts = db
+    const recentPosts = await db
         .select()
         .from(blogPosts)
         .orderBy(blogPosts.publishedAt)

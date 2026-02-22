@@ -4,6 +4,6 @@ import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    const allCategories = db.select().from(categories).all();
+    const allCategories = await db.select().from(categories).all();
     return { categories: allCategories };
 };
