@@ -387,6 +387,64 @@
     </div>
 </section>
 
+<!-- ─── LICENSING & CERTIFICATIONS ────────────────────────────────────────── -->
+<section class="py-20 bg-gray-50/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14 aos">
+            <p
+                class="text-xs font-semibold tracking-widest text-brand-500 uppercase mb-2"
+            >
+                Trust & Quality
+            </p>
+            <h2 class="section-heading">Licensing & Certifications</h2>
+            <p class="section-subheading mx-auto">
+                Our commitment to quality is backed by the highest industry standards and certifications.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {#each [
+                {
+                    icon: "🏅",
+                    title: "BIS Certified",
+                    subtitle: "IS 14543",
+                    desc: "Strictly compliant with the Bureau of Indian Standards for packaged drinking water quality and safety.",
+                },
+                {
+                    icon: "🛡️",
+                    title: "FSSAI Licensed",
+                    subtitle: "Food Safety",
+                    desc: "Fully licensed by the Food Safety and Standards Authority of India, ensuring absolute hygiene and health standards.",
+                },
+                {
+                    icon: "⚙️",
+                    title: "Automated Plant",
+                    subtitle: "Technology",
+                    desc: "Operating West Bengal's first fully automated plant with 24/7 quality monitoring and zero manual handling.",
+                }
+            ] as cert, i}
+                <div
+                    class="aos bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-brand-100 transition-all duration-300 group"
+                    style="transition-delay: {i * 100}ms"
+                >
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                            {cert.icon}
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-brand-500 uppercase tracking-wider">{cert.subtitle}</div>
+                            <h3 class="font-heading font-extrabold text-gray-900 text-xl">{cert.title}</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        {cert.desc}
+                    </p>
+                </div>
+            {/each}
+        </div>
+    </div>
+</section>
+
 <!-- ─── PROCESS ────────────────────────────────────────────────────────────── -->
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
