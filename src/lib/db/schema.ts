@@ -88,3 +88,9 @@ export const contacts = sqliteTable('contacts', {
     message: text('message').notNull(),
     createdAt: text('created_at').$defaultFn(() => new Date().toISOString())
 });
+
+// ─── Site Settings ────────────────────────────────────────────────────────────
+export const siteSettings = sqliteTable('site_settings', {
+    key: text('key').primaryKey(),
+    value: text('value').notNull()
+});

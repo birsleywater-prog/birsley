@@ -114,6 +114,13 @@ export async function initDb() {
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  await client.execute(`
+    CREATE TABLE IF NOT EXISTS site_settings (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL
+    );
+  `);
 }
 
 // Seed default data
@@ -147,5 +154,13 @@ export async function seedDb() {
     ('Facts & Figures: How Much Water Should You Actually Drink?', 'how-much-water-should-you-drink', 'Discover the science behind daily water intake recommendations and how to stay optimally hydrated.', '<p>Water is the essence of life. The commonly cited figure of 8 glasses (about 2 liters) per day is a reasonable goal for most adults, but it varies based on body weight, activity level, and climate...</p><p>According to the National Academies of Sciences, men need about 3.7 liters and women 2.7 liters of total water per day from all beverages and foods combined.</p>', '2024-06-08 00:00:00'),
     ('Hydration Hacks: Creative Ways to Stay Refreshed Throughout the Day', 'hydration-hacks-stay-refreshed', 'Practical tips and creative strategies to make drinking water a natural part of your daily routine.', '<p>Most people struggle to drink enough water throughout the day. Here are some proven hydration hacks to keep you refreshed...</p><p>Start your morning with a full glass before coffee. Keep a water bottle on your desk. Eat water-rich foods like cucumbers and watermelon.</p>', '2024-06-08 00:00:00'),
     ('Tips for Choosing the Right Bottled Water: What Consumers Need to Know', 'choosing-right-bottled-water', 'A comprehensive guide to understanding water quality standards, certifications, and what to look for.', '<p>Not all bottled water is created equal. When choosing packaged drinking water, look for BIS certification (IS 14543) which ensures the product meets Indian safety standards...</p><p>Bizaree water undergoes triple-stage purification and is BIS certified, ensuring you get only the best quality hydration.</p>', '2024-06-08 00:00:00');
+
+    INSERT OR IGNORE INTO site_settings (key, value) VALUES
+    ('about_hero_title', 'West Bengal''s First Automated Water Plant'),
+    ('about_hero_description', 'We are committed to providing the best packaged drinking water with industry experience of more than 25 years.'),
+    ('about_story_title', 'Pure Water, Pure Commitment'),
+    ('about_story_content_1', 'Bizaree was founded with a singular mission — to bring the highest quality packaged drinking water to homes and businesses across West Bengal. As the state''s first fully automated water plant, we combine advanced technology with rigorous quality control.'),
+    ('about_story_content_2', 'With over 25 years of industry experience, our team understands the importance of pure, safe drinking water. Every bottle that leaves our facility undergoes triple-stage purification and strict quality checks.'),
+    ('about_image', '');
   `);
 }

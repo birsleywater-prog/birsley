@@ -59,7 +59,7 @@
             </div>
 
             <nav class="flex-1 px-4 space-y-1 mt-4">
-                {#each [{ label: "Dashboard", path: "/admin", icon: "📊" }, { label: "Products", path: "/admin/products", icon: "🛒" }, { label: "Categories", path: "/admin/categories", icon: "📁" }, { label: "Banners", path: "/admin/banners", icon: "🖼️" }, { label: "Blog Posts", path: "/admin/blog", icon: "📰" }, { label: "Orders", path: "/admin/orders", icon: "📦" }, { label: "Contact Leads", path: "/admin/contacts", icon: "✉️" }] as item}
+                {#each [{ label: "Dashboard", path: "/admin", icon: "📊" }, { label: "About Page", path: "/admin/about", icon: "ℹ️" }, { label: "Products", path: "/admin/products", icon: "🛒" }, { label: "Categories", path: "/admin/categories", icon: "📁" }, { label: "Banners", path: "/admin/banners", icon: "🖼️" }, { label: "Blog Posts", path: "/admin/blog", icon: "📰" }, { label: "Orders", path: "/admin/orders", icon: "📦" }, { label: "Contact Leads", path: "/admin/contacts", icon: "✉️" }] as item}
                     <a
                         href={item.path}
                         class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors {$page

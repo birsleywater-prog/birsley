@@ -1,6 +1,9 @@
 <script lang="ts">
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { PUBLIC_APP_NAME } from "$env/static/public";
+    import type { PageData } from "./$types";
+    export let data: PageData;
+    $: about = data.aboutSettings;
 </script>
 
 <SEOHead
@@ -22,11 +25,10 @@
                 <h1
                     class="font-heading font-extrabold text-4xl md:text-5xl mb-6 leading-tight"
                 >
-                    West Bengal's First Automated Water Plant
+                    {about.about_hero_title}
                 </h1>
                 <p class="text-brand-100 text-lg leading-relaxed">
-                    We are committed to providing the best packaged drinking
-                    water with industry experience of more than 25 years.
+                    {about.about_hero_description}
                 </p>
             </div>
         </div>
@@ -38,14 +40,22 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="aos-left">
                     <div
-                        class="h-80 bg-gradient-to-br from-water-light via-brand-100 to-brand-200 rounded-3xl flex items-center justify-center"
+                        class="h-80 bg-gradient-to-br from-water-light via-brand-100 to-brand-200 rounded-3xl flex items-center justify-center overflow-hidden"
                     >
-                        <div class="text-center">
-                            <div class="text-8xl mb-4">🏭</div>
-                            <p class="text-brand-700 font-semibold">
-                                Automated Plant
-                            </p>
-                        </div>
+                        {#if about.about_image}
+                            <img
+                                src={about.about_image}
+                                alt="Automated Plant"
+                                class="w-full h-full object-cover"
+                            />
+                        {:else}
+                            <div class="text-center">
+                                <div class="text-8xl mb-4">🏭</div>
+                                <p class="text-brand-700 font-semibold">
+                                    Automated Plant
+                                </p>
+                            </div>
+                        {/if}
                     </div>
                 </div>
                 <div class="aos">
@@ -55,20 +65,13 @@
                         Our Story
                     </p>
                     <h2 class="section-heading mb-6">
-                        Pure Water, Pure Commitment
+                        {about.about_story_title}
                     </h2>
                     <p class="text-gray-500 leading-relaxed mb-4">
-                        {PUBLIC_APP_NAME} was founded with a singular mission — to
-                        bring the highest quality packaged drinking water to homes
-                        and businesses across West Bengal. As the state's first fully
-                        automated water plant, we combine advanced technology with
-                        rigorous quality control.
+                        {about.about_story_content_1}
                     </p>
                     <p class="text-gray-500 leading-relaxed mb-6">
-                        With over 25 years of industry experience, our team
-                        understands the importance of pure, safe drinking water.
-                        Every bottle that leaves our facility undergoes
-                        triple-stage purification and strict quality checks.
+                        {about.about_story_content_2}
                     </p>
                     <a href="/contact" class="btn-primary">Get in Touch</a>
                 </div>
