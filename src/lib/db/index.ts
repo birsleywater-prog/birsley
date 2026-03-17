@@ -13,7 +13,7 @@ if (!DATABASE_URL || DATABASE_URL.startsWith('file:')) {
 
 const client = createClient({
   url: DATABASE_URL || 'file:db/database.sqlite',
-  authToken: DATABASE_AUTH_TOKEN
+  authToken: DATABASE_AUTH_TOKEN || ''
 });
 
 export const db = drizzle(client, { schema });
