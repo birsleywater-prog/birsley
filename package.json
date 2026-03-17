@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && cp -r db build/db",
     "preview": "vite preview",
     "start": "node build/index.js",
     "db:generate": "drizzle-kit generate",
