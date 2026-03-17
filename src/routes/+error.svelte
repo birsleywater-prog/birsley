@@ -1,7 +1,8 @@
 <script>
     import { page } from "$app/stores";
     import { onMount } from "svelte";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+    const { PUBLIC_APP_NAME } = env;
 
     // Animation trigger
     let mounted = false;

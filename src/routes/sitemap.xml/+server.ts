@@ -1,9 +1,9 @@
 import { db } from '$lib/db/index';
 import { products, categories, blogPosts } from '$lib/db/schema';
-import { PUBLIC_SITE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export async function GET() {
-    const baseUrl = PUBLIC_SITE_URL || 'https://bizaree.in';
+    const baseUrl = env.PUBLIC_SITE_URL || 'https://bizaree.in';
     const pages = ['', '/about', '/products', '/categories', '/contact', '/blog'];
 
     const allProducts = await db.select().from(products);

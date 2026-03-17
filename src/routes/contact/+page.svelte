@@ -2,16 +2,16 @@
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { enhance } from "$app/forms";
     import type { ActionData } from "./$types";
-    import {
+    import { env } from "$env/dynamic/public";
+    const {
         PUBLIC_PHONE_DISPLAY,
         PUBLIC_PHONE_LINK,
         PUBLIC_CONTACT_EMAIL,
         PUBLIC_MAP_EMBED_URL,
-    } from "$env/static/public";
+        PUBLIC_APP_NAME
+    } = env;
 
     export let form: ActionData;
-
-    import { PUBLIC_APP_NAME } from "$env/static/public";
 
     let submitting = false;
 </script>

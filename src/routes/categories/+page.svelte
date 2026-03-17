@@ -1,7 +1,8 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import SEOHead from "$lib/components/SEOHead.svelte";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+    const { PUBLIC_APP_NAME } = env;
     export let data: PageData;
 </script>
 

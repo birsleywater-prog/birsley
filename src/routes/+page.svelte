@@ -6,11 +6,12 @@
     import { onMount, onDestroy } from "svelte";
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
-    import {
+    import { env } from "$env/dynamic/public";
+    const {
         PUBLIC_PHONE_DISPLAY,
         PUBLIC_PHONE_LINK,
         PUBLIC_APP_NAME,
-    } from "$env/static/public";
+    } = env;
 
     export let data: PageData;
 

@@ -3,7 +3,7 @@
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { buildProductJsonLd } from "$lib/utils/seo";
     import { cart } from "$lib/stores/cart";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
 
     export let data: PageData;
     $: product = data.product;
@@ -30,9 +30,9 @@
 </script>
 
 <SEOHead
-    title="{product.name} | {PUBLIC_APP_NAME} Water"
+    title="{product.name} | {env.PUBLIC_APP_NAME} Water"
     description={product.description ??
-        `Buy ${PUBLIC_APP_NAME} ${product.name} — BIS certified packaged drinking water.`}
+        `Buy ${env.PUBLIC_APP_NAME} ${product.name} — BIS certified packaged drinking water.`}
     url="/products/{product.slug}"
     type="product"
     jsonLd={buildProductJsonLd(product)}

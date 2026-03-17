@@ -1,7 +1,7 @@
-import { PUBLIC_SITE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const GET = async () => {
-    const siteUrl = PUBLIC_SITE_URL || 'https://bizaree.in';
+    const siteUrl = env.PUBLIC_SITE_URL || 'https://bizaree.in';
 
     const robots = `User-agent: *
 Allow: /

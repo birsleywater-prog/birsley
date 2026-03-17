@@ -1,5 +1,6 @@
 <script lang="ts">
-  import {
+  import { env } from "$env/dynamic/public";
+  const {
     PUBLIC_FACEBOOK_URL,
     PUBLIC_INSTAGRAM_URL,
     PUBLIC_YOUTUBE_URL,
@@ -7,7 +8,7 @@
     PUBLIC_PHONE_LINK,
     PUBLIC_CONTACT_EMAIL,
     PUBLIC_APP_NAME,
-  } from "$env/static/public";
+  } = env;
 </script>
 
 <footer class="bg-gray-950 text-gray-300">

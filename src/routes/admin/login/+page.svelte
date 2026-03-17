@@ -1,7 +1,8 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { ActionData } from "./$types";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+    const { PUBLIC_APP_NAME } = env;
     export let form: ActionData;
     let submitting = false;
 </script>

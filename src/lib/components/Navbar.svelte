@@ -2,7 +2,8 @@
   import { page } from "$app/stores";
   import { cartCount } from "$lib/stores/cart";
   import { onMount } from "svelte";
-  import { PUBLIC_APP_NAME } from "$env/static/public";
+  import { env } from "$env/dynamic/public";
+  const { PUBLIC_APP_NAME } = env;
 
   let scrolled = false;
   let mobileOpen = false;

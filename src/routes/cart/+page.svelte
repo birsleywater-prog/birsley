@@ -1,7 +1,8 @@
 <script lang="ts">
     import SEOHead from "$lib/components/SEOHead.svelte";
     import { cart, cartTotal, cartCount } from "$lib/stores/cart";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+    const { PUBLIC_APP_NAME } = env;
 </script>
 
 <SEOHead

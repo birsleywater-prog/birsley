@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { PUBLIC_APP_NAME, PUBLIC_SITE_URL } from "$env/static/public";
+  import { env } from "$env/dynamic/public";
+  const { PUBLIC_APP_NAME, PUBLIC_SITE_URL } = env;
 
   export let title: string;
   export let description: string;

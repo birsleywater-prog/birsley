@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { PUBLIC_APP_NAME } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+    const { PUBLIC_APP_NAME } = env;
     import { afterNavigate } from "$app/navigation";
 
     let mobileMenuOpen = false;

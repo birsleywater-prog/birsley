@@ -1,4 +1,5 @@
-import {
+import { env } from '$env/dynamic/public';
+const {
     PUBLIC_APP_NAME,
     PUBLIC_SITE_URL,
     PUBLIC_PHONE_LINK,
@@ -6,7 +7,7 @@ import {
     PUBLIC_FACEBOOK_URL,
     PUBLIC_INSTAGRAM_URL,
     PUBLIC_YOUTUBE_URL
-} from '$env/static/public';
+} = env;
 
 const SITE_NAME = PUBLIC_APP_NAME || 'Bizaree';
 const SITE_URL = PUBLIC_SITE_URL || 'https://bizaree.in';
