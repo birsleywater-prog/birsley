@@ -1,12 +1,12 @@
 import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 
-import { ADMIN_PASSWORD } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
     const { pathname } = event.url;
 
-    if (!ADMIN_PASSWORD) {
+    if (!env.ADMIN_PASSWORD) {
         console.warn('WARNING: ADMIN_PASSWORD environment variable is not set.');
     }
 
@@ -24,7 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     // Expose ADMIN_PASSWORD to server-side forms
-    event.locals.adminPassword = ADMIN_PASSWORD;
+    event.locals.adminPassword = env.ADMIN_PASSWORD || '';
 
     return resolve(event);
 };
