@@ -1,4 +1,9 @@
 import * as nodemailer from 'nodemailer';
+import dns from 'node:dns';
+
+// Fix for Railway/IPv6 ENETUNREACH errors with Gmail SMTP
+dns.setDefaultResultOrder('ipv4first');
+
 import { env } from '$env/dynamic/private';
 import {
     PUBLIC_APP_NAME,

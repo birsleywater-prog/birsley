@@ -20,7 +20,7 @@
         <div class="mb-4">
           <span
             class="font-heading font-extrabold text-2xl tracking-widest text-white uppercase"
-            >{PUBLIC_APP_NAME || ""}</span
+            >{PUBLIC_APP_NAME || "Birsley"}</span
           >
           <span
             class="block text-[10px] tracking-[0.3em] text-gray-500 uppercase font-medium mt-0.5"
