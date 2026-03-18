@@ -20,7 +20,7 @@
         <div class="mb-4">
           <span
             class="font-heading font-extrabold text-2xl tracking-widest text-white uppercase"
-            >{PUBLIC_APP_NAME || "BIZAREE"}</span
+            >{PUBLIC_APP_NAME || ""}</span
           >
           <span
             class="block text-[10px] tracking-[0.3em] text-gray-500 uppercase font-medium mt-0.5"
@@ -213,7 +213,8 @@
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-3"
     >
       <p class="text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} Bizaree Water. All rights reserved.
+        &copy; {new Date().getFullYear()}
+        {PUBLIC_APP_NAME} Water. All rights reserved.
       </p>
       <div class="flex items-center gap-6">
         <a
