@@ -1,9 +1,4 @@
-import * as nodemailer from 'nodemailer';
-import dns from 'node:dns';
-
-// Fix for Railway/IPv6 ENETUNREACH errors with Gmail SMTP
-dns.setDefaultResultOrder('ipv4first');
-
+import { Resend } from 'resend';
 import { env } from '$env/dynamic/private';
 import {
     PUBLIC_APP_NAME,
@@ -18,30 +13,19 @@ const BRAND_LIGHT = '#e0f7f4';
 const TEXT_DARK = '#0a0a0a';
 const TEXT_MUTED = '#666666';
 
-function getTransporter() {
-    const smtpHost = env.SMTP_HOST || 'smtp.gmail.com';
-    const smtpPort = parseInt(env.SMTP_PORT || '587');
-    const smtpUser = env.SMTP_USER;
-    const smtpPass = env.SMTP_PASS;
+function getResendClient() {
+    const resendKey = env.RESEND_API_KEY;
 
-    if (!smtpUser || !smtpPass) {
-        throw new Error('SMTP_USER or SMTP_PASS is not configured in environment variables.');
+    if (!resendKey) {
+        throw new Error('RESEND_API_KEY is not configured in environment variables.');
     }
 
-    return nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-            user: smtpUser,
-            pass: smtpPass,
-        },
-    });
+    return new Resend(resendKey);
 }
 
 function getEmailWrapper(title: string, content: string) {
     const appName = PUBLIC_APP_NAME || 'BRISLEY';
-    const siteUrl = PUBLIC_SITE_URL || 'https://bizaree.in';
+    const siteUrl = PUBLIC_SITE_URL || 'https://birsley.in';
 
     return `
         <!DOCTYPE html>
@@ -91,7 +75,7 @@ function getEmailWrapper(title: string, content: string) {
 
 export async function sendEnquiryEmail(data: { name: string; email: string; phone?: string; message: string }) {
     const smtpUser = env.SMTP_USER;
-    const adminEmail = env.ADMIN_EMAIL || PUBLIC_CONTACT_EMAIL || smtpUser || 'singh.rohitsingh2k@gmail.com';
+    const adminEmail = env.ADMIN_EMAIL;
     const appName = PUBLIC_APP_NAME || 'BRISLEY';
 
     const content = `
@@ -113,13 +97,20 @@ export async function sendEnquiryEmail(data: { name: string; email: string; phon
         </div>
     `;
 
-    const transporter = getTransporter();
-    return transporter.sendMail({
-        from: `"${appName} Alerts" <${smtpUser}>`,
+    const resend = getResendClient();
+    const { data: responseData, error } = await resend.emails.send({
+        from: `"${appName} Alerts" <onboarding@resend.dev>`,
         to: adminEmail,
+        replyTo: data.email,
         subject: `[Enquiry] New message from ${data.name}`,
         html: getEmailWrapper(`New Enquiry Received`, content),
     });
+
+    if (error) {
+        throw new Error(`Resend email failed: ${error.message}`);
+    }
+
+    return responseData;
 }
 
 export async function sendOrderEmail(data: { customerName: string; email: string; phone?: string; address: string; itemsJson: string; total: number }) {
@@ -169,11 +160,18 @@ export async function sendOrderEmail(data: { customerName: string; email: string
         </table>
     `;
 
-    const transporter = getTransporter();
-    return transporter.sendMail({
-        from: `"${appName} Sales" <${smtpUser}>`,
+    const resend = getResendClient();
+    const { data: responseData, error } = await resend.emails.send({
+        from: `"${appName} Sales" <onboarding@resend.dev>`,
         to: adminEmail,
+        replyTo: data.email,
         subject: `[Order] New order from ${data.customerName} - ₹${data.total}`,
         html: getEmailWrapper(`New Order Confirmed`, content),
     });
+
+    if (error) {
+        throw new Error(`Resend email failed: ${error.message}`);
+    }
+
+    return responseData;
 }
