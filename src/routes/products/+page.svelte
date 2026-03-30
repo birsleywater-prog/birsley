@@ -148,15 +148,16 @@
                             <p class="text-sm text-gray-500 line-clamp-2 mb-4">
                                 {product.description ?? ""}
                             </p>
-                            <div class="flex gap-3">
+                            <div class="flex flex-col sm:flex-row gap-3">
                                 <a
                                     href="/products/{product.slug}"
-                                    class="btn-ghost text-sm flex-1 justify-center"
-                                    >Details</a
+                                    class="border border-brand-200 text-brand-600 hover:bg-brand-50 rounded-lg py-2.5 px-4 text-sm font-semibold flex-1 text-center transition-colors"
                                 >
+                                    Details
+                                </a>
                                 <button
                                     on:click={() => addToCart(product)}
-                                    class="btn-primary text-sm flex-1 justify-center"
+                                    class="bg-brand-500 hover:bg-brand-600 text-white rounded-lg py-2.5 px-4 text-sm font-semibold flex-1 text-center transition-colors"
                                 >
                                     + Enquire
                                 </button>

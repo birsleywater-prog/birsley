@@ -363,19 +363,19 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center gap-3">
-                            <a
-                                href="/products/{product.slug}"
-                                class="text-sm font-medium text-brand-600 hover:text-brand-800 transition-colors"
-                            >
-                                Details →
-                            </a>
+                        <div class="mt-4 flex flex-col xl:flex-row items-center gap-3">
                             <button
                                 on:click={() => addToCart(product)}
-                                class="ml-auto text-xs btn-primary px-4 py-2"
+                                class="w-full xl:w-auto xl:ml-auto text-xs bg-brand-500 hover:bg-brand-600 text-white rounded-lg px-4 py-2 font-semibold transition-colors order-1 xl:order-2"
                             >
                                 Enquire
                             </button>
+                            <a
+                                href="/products/{product.slug}"
+                                class="text-sm font-medium text-brand-600 hover:text-brand-800 transition-colors order-2 xl:order-1"
+                            >
+                                Details →
+                            </a>
                         </div>
                     </div>
                 </div>
