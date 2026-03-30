@@ -3,7 +3,7 @@
     const { PUBLIC_APP_NAME, PUBLIC_SITE_URL } = env;
     const siteUrl =
         PUBLIC_SITE_URL?.replace("https://", "")?.replace("http://", "") ||
-        "bizaree.in";
+        "birsley.in";
 </script>
 
 <div class="py-20 max-w-4xl mx-auto px-6">

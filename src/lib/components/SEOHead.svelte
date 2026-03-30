@@ -10,7 +10,7 @@
   export let jsonLd: object | null = null;
   export let keywords = "";
 
-  const siteUrl = PUBLIC_SITE_URL || "https://bizaree.in";
+  const siteUrl = PUBLIC_SITE_URL || "https://birsley.in";
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
   const fullImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
 </script>
@@ -30,7 +30,7 @@
   <meta property="og:url" content={fullUrl} />
   <meta
     property="og:site_name"
-    content="{PUBLIC_APP_NAME || 'Bizaree'} Water"
+    content="{PUBLIC_APP_NAME}"
   />
   <meta property="og:locale" content="en_IN" />
 

@@ -1,4 +1,6 @@
 import { writable, derived } from 'svelte/store';
+import { env } from '$env/dynamic/public';
+const CART_KEY = `${env.PUBLIC_APP_NAME}_cart`;
 
 export interface CartItem {
     id: number;
@@ -15,7 +17,7 @@ function createCartStore() {
     function loadCart(): CartItem[] {
         if (typeof window === 'undefined') return [];
         try {
-            const saved = localStorage.getItem('bizaree_cart');
+            const saved = localStorage.getItem(CART_KEY);
             return saved ? JSON.parse(saved) : [];
         } catch {
             return [];
@@ -26,7 +28,7 @@ function createCartStore() {
 
     function saveCart(items: CartItem[]) {
         if (typeof window !== 'undefined') {
-            localStorage.setItem('bizaree_cart', JSON.stringify(items));
+            localStorage.setItem(CART_KEY, JSON.stringify(items));
         }
     }
 
@@ -66,7 +68,7 @@ function createCartStore() {
         clearCart() {
             set([]);
             if (typeof window !== 'undefined') {
-                localStorage.removeItem('bizaree_cart');
+                localStorage.removeItem(CART_KEY);
             }
         }
     };

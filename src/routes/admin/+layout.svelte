@@ -34,7 +34,7 @@
                     <span class="text-2xl">💧</span>
                     <span
                         class="font-heading font-bold text-xl tracking-tight text-gray-900"
-                        >{PUBLIC_APP_NAME || "Bizaree"} Admin</span
+                        >{PUBLIC_APP_NAME} Admin</span
                     >
                 </div>
                 <!-- Close Button (Mobile Only) -->

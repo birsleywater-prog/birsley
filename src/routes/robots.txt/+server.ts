@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/public';
 
 export const GET = async () => {
-    const siteUrl = env.PUBLIC_SITE_URL || 'https://bizaree.in';
+    const siteUrl = env.PUBLIC_SITE_URL || 'https://birsley.in';
 
     const robots = `User-agent: *
 Allow: /

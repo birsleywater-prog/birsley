@@ -74,7 +74,7 @@
         <span
           class="font-heading font-extrabold text-2xl tracking-widest text-brand-600 uppercase"
         >
-          {PUBLIC_APP_NAME || "BIZAREE"}
+          {PUBLIC_APP_NAME}
         </span>
         <span
           class="text-[9px] tracking-[0.3em] text-gray-400 uppercase font-medium"

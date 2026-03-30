@@ -9,8 +9,8 @@ const {
     PUBLIC_YOUTUBE_URL
 } = env;
 
-const SITE_NAME = PUBLIC_APP_NAME || 'Bizaree';
-const SITE_URL = PUBLIC_SITE_URL || 'https://bizaree.in';
+const SITE_NAME = PUBLIC_APP_NAME;
+const SITE_URL = PUBLIC_SITE_URL;
 const DEFAULT_IMAGE = '/images/og-default.jpg';
 
 export interface SEOConfig {

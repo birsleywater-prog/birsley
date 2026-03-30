@@ -260,7 +260,7 @@
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14 aos">
-            <h2 class="section-heading">Why Choose Bizaree?</h2>
+            <h2 class="section-heading">Why Choose {PUBLIC_APP_NAME}?</h2>
             <p class="section-subheading mx-auto">
                 We Provide The Best Packaged Drinking Water — backed by
                 technology, quality, and experience.
