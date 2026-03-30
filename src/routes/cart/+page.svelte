@@ -34,67 +34,45 @@
         <div class="space-y-4 mb-8">
             {#each $cart as item}
                 <div
-                    class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-center gap-5"
+                    class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 relative"
                 >
-                    <!-- Product image/icon -->
-                    <div
-                        class="w-16 h-16 rounded-xl bg-gradient-to-br from-water-light to-brand-100 flex items-center justify-center flex-shrink-0"
-                    >
-                        {#if item.image}
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                class="w-full h-full object-cover rounded-xl"
-                            />
-                        {:else}
-                            <span class="text-2xl">💧</span>
-                        {/if}
+                    <!-- Top section on mobile (Image, Info, Delete) -->
+                    <div class="flex items-start sm:items-center gap-4 flex-1 pr-8 sm:pr-0">
+                        <!-- Product image/icon -->
+                        <div
+                            class="w-16 h-16 rounded-xl bg-gradient-to-br from-water-light to-brand-100 flex items-center justify-center flex-shrink-0"
+                        >
+                            {#if item.image}
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    class="w-full h-full object-cover rounded-xl"
+                                />
+                            {:else}
+                                <span class="text-2xl">💧</span>
+                            {/if}
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-heading font-semibold text-gray-900 truncate sm:whitespace-normal">
+                                {item.name}
+                            </h3>
+                            <p class="text-sm text-gray-500 mt-0.5">
+                                {item.volume}
+                                <span class="hidden sm:inline"> · </span>
+                                <span class="block sm:inline">₹{item.price} each</span>
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="flex-1">
-                        <h3 class="font-heading font-semibold text-gray-900">
-                            {item.name}
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            {item.volume} · ₹{item.price} each
-                        </p>
-                    </div>
-
-                    <!-- Quantity controls -->
-                    <div class="flex items-center gap-3">
-                        <button
-                            on:click={() =>
-                                cart.updateQuantity(item.id, item.quantity - 1)}
-                            class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-400 hover:text-brand-600 transition-colors text-base"
-                            >−</button
-                        >
-                        <span
-                            class="w-8 text-center font-semibold text-gray-900"
-                            >{item.quantity}</span
-                        >
-                        <button
-                            on:click={() =>
-                                cart.updateQuantity(item.id, item.quantity + 1)}
-                            class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-400 hover:text-brand-600 transition-colors text-base"
-                            >+</button
-                        >
-                    </div>
-
-                    <!-- Item total -->
-                    <div class="w-24 text-right">
-                        <span class="font-semibold text-gray-900"
-                            >₹{(item.price * item.quantity).toFixed(0)}</span
-                        >
-                    </div>
-
-                    <!-- Remove -->
+                    <!-- Remove button absolute on mobile, static on desktop -->
                     <button
                         on:click={() => cart.removeItem(item.id)}
-                        class="ml-2 p-2 text-gray-400 hover:text-red-500 transition-colors"
+                        class="absolute top-4 right-4 sm:static sm:p-2 text-gray-400 hover:text-red-500 transition-colors"
                         aria-label="Remove"
                     >
                         <svg
-                            class="w-4 h-4"
+                            class="w-5 h-5 sm:w-4 sm:h-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -107,6 +85,33 @@
                             />
                         </svg>
                     </button>
+
+                    <!-- Bottom section on mobile (Quantity, Total) -->
+                    <div class="flex items-center justify-between sm:justify-end gap-5 border-t border-gray-100 sm:border-none pt-4 sm:pt-0 mt-2 sm:mt-0">
+                        <!-- Quantity controls -->
+                        <div class="flex items-center gap-3">
+                            <button
+                                on:click={() =>
+                                    cart.updateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                                class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-400 hover:text-brand-600 transition-colors text-base"
+                            >−</button>
+                            <span class="w-8 text-center font-semibold text-gray-900">
+                                {item.quantity}
+                            </span>
+                            <button
+                                on:click={() =>
+                                    cart.updateQuantity(item.id, item.quantity + 1)}
+                                class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-400 hover:text-brand-600 transition-colors text-base"
+                            >+</button>
+                        </div>
+
+                        <!-- Item total -->
+                        <div class="text-right sm:w-24">
+                            <span class="font-bold text-gray-900 font-heading text-lg sm:text-base">
+                                ₹{(item.price * item.quantity).toFixed(0)}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             {/each}
         </div>
