@@ -173,9 +173,9 @@
                     This image will replace the factory emoji (🏭) on the About
                     page.
                 </p>
-                <div class="flex items-start gap-8">
+                <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
                     <div
-                        class="w-48 h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-dashed border-gray-200"
+                        class="w-32 h-32 md:w-48 md:h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-dashed border-gray-200 shrink-0 mx-auto md:mx-0"
                     >
                         {#if aboutImage}
                             <img
