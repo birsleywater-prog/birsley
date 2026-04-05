@@ -29,7 +29,7 @@
         </div>
         <p class="text-sm text-gray-400 leading-relaxed mb-6">
           West Bengal's first automated water plant. Premium packaged drinking
-          water with strict quality control and 25+ years of industry
+          water with strict quality control and 12+ years of industry
           experience.
         </p>
         <!-- Social links -->

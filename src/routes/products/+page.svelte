@@ -35,7 +35,7 @@
 
 <SEOHead
     title="Products | {env.PUBLIC_APP_NAME} Water"
-    description="Browse {env.PUBLIC_APP_NAME}'s complete range of packaged drinking water — 250ml bottles to 20L jars. BIS certified. Bulk orders welcome."
+    description="Browse {env.PUBLIC_APP_NAME}'s complete range of packaged drinking water — 250ml bottles to 20L jars. Fassai certified. Bulk orders welcome."
     url="/products"
     keywords="packaged water products, 250ml bottle, 500ml bottle, 20 litre jar, bulk water order, {env.PUBLIC_APP_NAME}"
 />

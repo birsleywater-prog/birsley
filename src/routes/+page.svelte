@@ -18,6 +18,8 @@
     let showSuccessModal = false;
     let currentBanner = 0;
     let bannerInterval: ReturnType<typeof setInterval>;
+    let currentTestimonial = 0;
+    let testimonialContainer: HTMLElement;
 
     onMount(() => {
         if ($page.url.searchParams.get("ordered") === "1") {
@@ -38,6 +40,26 @@
         const url = new URL($page.url);
         url.searchParams.delete("ordered");
         goto(url.pathname, { replaceState: true, noScroll: true });
+    }
+
+    function handleTestimonialScroll(e: Event) {
+        const target = e.target as HTMLElement;
+        const scrollLeft = target.scrollLeft;
+        if (target.children.length > 0) {
+            const itemWidth = target.children[0].clientWidth;
+            currentTestimonial = Math.round(scrollLeft / (itemWidth + 24)); // 24px gap
+        }
+    }
+
+    function scrollToTestimonial(i: number) {
+        if (testimonialContainer && testimonialContainer.children.length > 0) {
+            const itemWidth = testimonialContainer.children[0].clientWidth;
+            testimonialContainer.scrollTo({
+                left: i * (itemWidth + 24),
+                behavior: 'smooth'
+            });
+            currentTestimonial = i;
+        }
     }
 
     const features = [
@@ -100,7 +122,7 @@
 
 <SEOHead
     title="{PUBLIC_APP_NAME} Water — West Bengal's Premium Packaged Drinking Water"
-    description="{PUBLIC_APP_NAME} is West Bengal's first automated packaged drinking water plant. Premium quality 250ml to 20L water bottles and jars. BIS certified. 25+ years of experience."
+    description="{PUBLIC_APP_NAME} is West Bengal's first automated packaged drinking water plant. Premium quality 250ml to 20L water bottles and jars. Fassai certified. 12+ years of experience."
     url="/"
     jsonLd={organizationJsonLd}
     keywords="packaged drinking water, mineral water, {PUBLIC_APP_NAME} water, West Bengal water plant, 20L jar, water delivery"
@@ -198,7 +220,7 @@
                                 ? ''
                                 : 'justify-center'}"
                         >
-                            {#each [["25+", "Years Experience"], ["6+", "Product Variants"], ["BIS", "Certified"]] as [num, label]}
+                            {#each [["12+", "Years Experience"], ["6+", "Product Variants"], ["Fassai", "Certified"]] as [num, label]}
                                 <div>
                                     <div
                                         class="text-3xl font-extrabold font-heading text-brand-600"
@@ -407,7 +429,7 @@
             {#each [
                 {
                     icon: "🏅",
-                    title: "BIS Certified",
+                    title: "Fassai Certified",
                     subtitle: "IS 14543",
                     desc: "Strictly compliant with the Bureau of Indian Standards for packaged drinking water quality and safety.",
                 },
@@ -514,10 +536,14 @@
                     What Distributors Say About Us
                 </h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div 
+                bind:this={testimonialContainer}
+                on:scroll={handleTestimonialScroll}
+                class="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 md:overflow-visible md:snap-none -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth hide-scrollbar"
+            >
                 {#each data.testimonials as t, i}
                     <div
-                        class="aos bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8"
+                        class="aos shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8"
                         style="transition-delay: {i * 100}ms"
                     >
                         <!-- Stars -->
@@ -545,6 +571,17 @@
                             </div>
                         </div>
                     </div>
+                {/each}
+            </div>
+            
+            <!-- Mobile Navigation Dots -->
+            <div class="md:hidden flex justify-center gap-2 mt-6">
+                {#each data.testimonials as _, i}
+                    <button
+                        aria-label="View testimonial {i + 1}"
+                        class="h-2 rounded-full transition-all duration-300 {i === currentTestimonial ? 'w-6 bg-brand-400' : 'w-2 bg-white/30'}"
+                        on:click={() => scrollToTestimonial(i)}
+                    ></button>
                 {/each}
             </div>
         </div>
@@ -682,3 +719,13 @@
         </div>
     </div>
 {/if}
+
+<style>
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+</style>

@@ -32,7 +32,7 @@
 <SEOHead
     title="{product.name} | {env.PUBLIC_APP_NAME} Water"
     description={product.description ??
-        `Buy ${env.PUBLIC_APP_NAME} ${product.name} — BIS certified packaged drinking water.`}
+        `Buy ${env.PUBLIC_APP_NAME} ${product.name} — Fassai certified packaged drinking water.`}
     url="/products/{product.slug}"
     type="product"
     jsonLd={buildProductJsonLd(product)}
@@ -166,7 +166,7 @@
 
             <!-- Features list -->
             <div class="mt-6 grid grid-cols-2 gap-3">
-                {#each ["BIS Certified", "Triple Purification", "Tamper-proof Seal", "Food-grade PET"] as feat}
+                {#each ["Fassai Certified", "Triple Purification", "Tamper-proof Seal", "Food-grade PET"] as feat}
                     <div class="flex items-center gap-2 text-sm text-gray-600">
                         <span class="text-brand-500">✓</span>
                         {feat}
