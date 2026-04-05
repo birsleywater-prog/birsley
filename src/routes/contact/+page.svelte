@@ -8,7 +8,9 @@
         PUBLIC_PHONE_LINK,
         PUBLIC_CONTACT_EMAIL,
         PUBLIC_MAP_EMBED_URL,
-        PUBLIC_APP_NAME
+        PUBLIC_APP_NAME,
+        PUBLIC_PLANT_NAME,
+        PUBLIC_PLANT_ADDRESS
     } = env;
 
     export let form: ActionData;
@@ -103,6 +105,50 @@
                                 >
                             </div>
                         </div>
+
+                        {#if PUBLIC_PLANT_ADDRESS}
+                            <div class="flex gap-4 items-start pt-2">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center flex-shrink-0"
+                                >
+                                    <svg
+                                        class="w-5 h-5 text-brand-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="2"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div
+                                        class="font-semibold text-gray-900 mb-0.5"
+                                    >
+                                        Visit the Plant
+                                    </div>
+                                    <div class="text-gray-600 space-y-0.5">
+                                        {#if PUBLIC_PLANT_NAME}
+                                            <p class="font-medium">
+                                                {PUBLIC_PLANT_NAME}
+                                            </p>
+                                        {/if}
+                                        <p class="text-sm leading-relaxed">
+                                            {PUBLIC_PLANT_ADDRESS}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {/if}
                     </div>
                 </div>
 
