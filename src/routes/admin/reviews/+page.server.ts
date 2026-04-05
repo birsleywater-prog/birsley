@@ -3,7 +3,7 @@ import { testimonials } from '$lib/db/schema';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    const reviews = db.select().from(testimonials).all();
+    const reviews = await db.select().from(testimonials).all();
     return {
         reviews
     };

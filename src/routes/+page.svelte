@@ -428,16 +428,16 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {#each [
                 {
-                    icon: "🏅",
-                    title: "Fassai Certified",
-                    subtitle: "IS 14543",
-                    desc: "Strictly compliant with the Bureau of Indian Standards for packaged drinking water quality and safety.",
+                    icon: "🏢",
+                    title: "GST Number",
+                    subtitle: "19AASFK2716K1ZT",
+                    desc: "Officially registered under the GST system of India, ensuring transparent and legal business operations.",
                 },
                 {
                     icon: "🛡️",
                     title: "FSSAI Licensed",
-                    subtitle: "Food Safety",
-                    desc: "Fully licensed by the Food Safety and Standards Authority of India, ensuring absolute hygiene and health standards.",
+                    subtitle: "12823999000337",
+                    desc: "Fully licensed by the Food Safety and Standards Authority of India (License No. <b>12823999000337</b>), ensuring absolute hygiene and health standards.",
                 },
                 {
                     icon: "⚙️",
@@ -460,7 +460,7 @@
                         </div>
                     </div>
                     <p class="text-gray-500 text-sm leading-relaxed">
-                        {cert.desc}
+                        {@html cert.desc}
                     </p>
                 </div>
             {/each}
@@ -493,7 +493,7 @@
                             class="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-brand-200 to-transparent z-0 -translate-y-px"
                         ></div>
                     {/if}
-                    <div class="relative z-10">
+                    <div class="relative z-10 flex flex-col items-center text-center sm:items-start sm:text-left">
                         <div
                             class="w-16 h-16 rounded-2xl bg-brand-50 border-2 border-brand-100 flex items-center justify-center mb-5 group-hover:bg-brand-500 group-hover:border-brand-500 transition-all duration-300"
                         >
@@ -539,11 +539,11 @@
             <div 
                 bind:this={testimonialContainer}
                 on:scroll={handleTestimonialScroll}
-                class="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 md:overflow-visible md:snap-none -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth hide-scrollbar"
+                class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth hide-scrollbar {data.testimonials.length <= 3 ? 'md:grid md:grid-cols-3 md:overflow-visible md:snap-none md:pb-0' : ''}"
             >
                 {#each data.testimonials as t, i}
                     <div
-                        class="aos shrink-0 w-[85vw] sm:w-[60vw] md:w-auto snap-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8"
+                        class="aos shrink-0 w-[85vw] sm:w-[60vw] md:w-[350px] snap-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 {data.testimonials.length <= 3 ? 'md:w-auto' : ''}"
                         style="transition-delay: {i * 100}ms"
                     >
                         <!-- Stars -->
@@ -574,8 +574,8 @@
                 {/each}
             </div>
             
-            <!-- Mobile Navigation Dots -->
-            <div class="md:hidden flex justify-center gap-2 mt-6">
+            <!-- Navigation Dots -->
+            <div class="flex justify-center gap-2 mt-6 {data.testimonials.length <= 3 ? 'md:hidden' : ''}">
                 {#each data.testimonials as _, i}
                     <button
                         aria-label="View testimonial {i + 1}"

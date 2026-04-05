@@ -52,7 +52,7 @@
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 md:h-20">
       <!-- Left nav links (desktop) -->
-      <div class="hidden md:flex items-center gap-6">
+      <div class="hidden lg:flex items-center gap-6">
         {#each navLinks.slice(0, 3) as link}
           <a
             href={link.href}
@@ -83,7 +83,7 @@
       </a>
 
       <!-- Right nav links + cart (desktop) -->
-      <div class="hidden md:flex items-center gap-6">
+      <div class="hidden lg:flex items-center gap-6">
         {#each navLinks.slice(3) as link}
           <a
             href={link.href}
@@ -132,7 +132,7 @@
       </div>
 
       <!-- Mobile right: cart + hamburger -->
-      <div class="flex md:hidden items-center gap-3 ml-auto">
+      <div class="flex lg:hidden items-center gap-3 ml-auto">
         <a
           href="/cart"
           class="relative p-2 text-gray-700 transition-all duration-300 {highlightCart
@@ -207,7 +207,7 @@
 
   <!-- Mobile menu -->
   {#if mobileOpen}
-    <div class="md:hidden bg-brand-50 border-t border-gray-100 shadow-lg">
+    <div class="lg:hidden bg-brand-50 border-t border-gray-100 shadow-lg">
       <div class="px-4 py-4 space-y-1">
         {#each navLinks as link}
           <a
