@@ -10,7 +10,8 @@
         PUBLIC_MAP_EMBED_URL,
         PUBLIC_APP_NAME,
         PUBLIC_PLANT_NAME,
-        PUBLIC_PLANT_ADDRESS
+        PUBLIC_PLANT_ADDRESS,
+        PUBLIC_MAP_REDIRECT_URL
     } = env;
 
     export let form: ActionData;
@@ -108,11 +109,15 @@
 
                         {#if PUBLIC_PLANT_ADDRESS}
                             <div class="flex gap-4 items-start pt-2">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center flex-shrink-0"
+                                <a
+                                    href={PUBLIC_MAP_REDIRECT_URL || PUBLIC_MAP_EMBED_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center flex-shrink-0 hover:bg-brand-100 transition-colors group"
+                                    title="View on Google Maps"
                                 >
                                     <svg
-                                        class="w-5 h-5 text-brand-600"
+                                        class="w-5 h-5 text-brand-600 group-hover:scale-110 transition-transform"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -129,7 +134,7 @@
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                         />
                                     </svg>
-                                </div>
+                                </a>
                                 <div>
                                     <div
                                         class="font-semibold text-gray-900 mb-0.5"
@@ -142,9 +147,14 @@
                                                 {PUBLIC_PLANT_NAME}
                                             </p>
                                         {/if}
-                                        <p class="text-sm leading-relaxed">
+                                        <a
+                                            href={PUBLIC_MAP_REDIRECT_URL || PUBLIC_MAP_EMBED_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-sm leading-relaxed hover:text-brand-600 transition-colors"
+                                        >
                                             {PUBLIC_PLANT_ADDRESS}
-                                        </p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

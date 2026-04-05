@@ -9,6 +9,8 @@
     PUBLIC_CONTACT_EMAIL,
     PUBLIC_APP_NAME,
     PUBLIC_PLANT_ADDRESS,
+    PUBLIC_MAP_EMBED_URL,
+    PUBLIC_MAP_REDIRECT_URL,
   } = env;
 </script>
 
@@ -185,27 +187,40 @@
           </li>
           {#if PUBLIC_PLANT_ADDRESS}
             <li class="flex items-start gap-3">
-              <svg
-                class="w-4 h-4 text-brand-400 mt-0.5 flex-shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
+              <a
+                href={PUBLIC_MAP_REDIRECT_URL || PUBLIC_MAP_EMBED_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-0.5 flex-shrink-0 text-brand-400 hover:text-brand-300 transition-colors"
+                title="View on Google Maps"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              <span class="text-xs text-gray-400 leading-relaxed"
-                >{PUBLIC_PLANT_ADDRESS}</span
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </a>
+              <a
+                href={PUBLIC_MAP_REDIRECT_URL || PUBLIC_MAP_EMBED_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-gray-400 leading-relaxed hover:text-brand-400 transition-colors"
               >
+                {PUBLIC_PLANT_ADDRESS}
+              </a>
             </li>
           {/if}
         </ul>
