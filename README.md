@@ -1,6 +1,6 @@
-# Brisley (Bizaree) 💧
+# Brisley 💧
 
-**Brisley** (also known as **Bizaree**) is a premium e-commerce platform for West Bengal's first automated packaged drinking water plant. The application provides a seamless experience for customers to browse water products (from 250ml bottles to 20L jars), manage a cart for enquiries, and read the latest industry news via an integrated blog.
+**Brisley** is a premium e-commerce platform for West Bengal's first automated packaged drinking water plant. The application provides a seamless experience for customers to browse water products (from 250ml bottles to 20L jars), manage a cart for enquiries, and read the latest industry news via an integrated blog.
 
 ## 🚀 Key Features
 
