@@ -1,6 +1,9 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { ActionData, PageData } from "./$types";
+    import { env } from "$env/dynamic/public";
+    import { getYoutubeEmbedUrl } from "$lib/utils/video";
+    const { PUBLIC_ABOUT_YOUTUBE_VIDEO } = env;
 
     export let data: PageData;
     export let form: ActionData;
@@ -170,10 +173,12 @@
                     Section Image
                 </h2>
                 <p class="text-sm text-gray-500 italic">
-                    This image will replace the factory emoji (🏭) on the About
-                    page.
+                    This image will replace the factory emoji (🏭) or the
+                    YouTube video (if configured) on the About page.
                 </p>
-                <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
+                <div
+                    class="flex flex-col md:flex-row items-start gap-6 md:gap-8"
+                >
                     <div
                         class="w-32 h-32 md:w-48 md:h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-dashed border-gray-200 shrink-0 mx-auto md:mx-0"
                     >
@@ -183,6 +188,19 @@
                                 alt="About section"
                                 class="w-full h-full object-cover"
                             />
+                        {:else if PUBLIC_ABOUT_YOUTUBE_VIDEO}
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={getYoutubeEmbedUrl(
+                                    PUBLIC_ABOUT_YOUTUBE_VIDEO,
+                                )}
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen
+                            ></iframe>
                         {:else}
                             <span class="text-4xl">🏭</span>
                         {/if}
